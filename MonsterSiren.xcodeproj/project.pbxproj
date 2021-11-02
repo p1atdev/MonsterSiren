@@ -7,15 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A47A36B27318BDD00A509B6 /* PlayQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47A36A27318BDD00A509B6 /* PlayQueue.swift */; };
+		3A47A36E2731936D00A509B6 /* SwiftAudioPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 3A47A36D2731936D00A509B6 /* SwiftAudioPlayer */; };
+		3A47A3702731944100A509B6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47A36F2731944100A509B6 /* Extensions.swift */; };
 		3A8038EA2731048F0044803F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8038E92731048F0044803F /* AppDelegate.swift */; };
 		3A8038EC2731048F0044803F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8038EB2731048F0044803F /* SceneDelegate.swift */; };
-		3A8038EE2731048F0044803F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8038ED2731048F0044803F /* ViewController.swift */; };
-		3A8038F12731048F0044803F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A8038EF2731048F0044803F /* Main.storyboard */; };
 		3A8038F3273104910044803F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A8038F2273104910044803F /* Assets.xcassets */; };
 		3A8038F6273104910044803F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A8038F4273104910044803F /* LaunchScreen.storyboard */; };
 		3A803901273104910044803F /* MonsterSirenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A803900273104910044803F /* MonsterSirenTests.swift */; };
 		3A80390B273104910044803F /* MonsterSirenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80390A273104910044803F /* MonsterSirenUITests.swift */; };
 		3A80390D273104910044803F /* MonsterSirenUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80390C273104910044803F /* MonsterSirenUITestsLaunchTests.swift */; };
+		3A80391C273106240044803F /* AlbumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80391B273106240044803F /* AlbumsView.swift */; };
+		3A80391E273106430044803F /* ContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80391D273106430044803F /* ContentsView.swift */; };
+		3A803922273109350044803F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A803921273109350044803F /* Main.storyboard */; };
+		3A80392727310AE20044803F /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80392627310AE20044803F /* Album.swift */; };
+		3A80392927310E9B0044803F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80392827310E9B0044803F /* MainViewModel.swift */; };
+		3A80392E273111140044803F /* APIfetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80392D273111140044803F /* APIfetch.swift */; };
+		3A80393027311ACD0044803F /* URLImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80392F27311ACD0044803F /* URLImageViewModel.swift */; };
+		3A80393227311AE30044803F /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80393127311AE30044803F /* URLImageView.swift */; };
+		3A80393427312A1E0044803F /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80393327312A1E0044803F /* TabBarView.swift */; };
+		3A80393627312A2B0044803F /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80393527312A2B0044803F /* PlayerViewModel.swift */; };
+		3A80393827312AC20044803F /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80393727312AC20044803F /* RootView.swift */; };
+		3A80393A27312B9B0044803F /* LoadingBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80393927312B9A0044803F /* LoadingBannerView.swift */; };
+		3A80393C2731382F0044803F /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80393B2731382F0044803F /* PlayerView.swift */; };
+		3A80393E273143EB0044803F /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80393D273143EB0044803F /* AlbumDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,11 +51,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A47A36A27318BDD00A509B6 /* PlayQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueue.swift; sourceTree = "<group>"; };
+		3A47A36F2731944100A509B6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3A8038E62731048F0044803F /* MonsterSiren.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonsterSiren.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8038E92731048F0044803F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A8038EB2731048F0044803F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3A8038ED2731048F0044803F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3A8038F02731048F0044803F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3A8038F2273104910044803F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A8038F5273104910044803F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A8038F7273104910044803F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +64,21 @@
 		3A803906273104910044803F /* MonsterSirenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonsterSirenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A80390A273104910044803F /* MonsterSirenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsterSirenUITests.swift; sourceTree = "<group>"; };
 		3A80390C273104910044803F /* MonsterSirenUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonsterSirenUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3A803919273104B50044803F /* MonsterSiren.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MonsterSiren.entitlements; sourceTree = "<group>"; };
+		3A80391B273106240044803F /* AlbumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsView.swift; sourceTree = "<group>"; };
+		3A80391D273106430044803F /* ContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsView.swift; sourceTree = "<group>"; };
+		3A803921273109350044803F /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		3A80392627310AE20044803F /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		3A80392827310E9B0044803F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		3A80392D273111140044803F /* APIfetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIfetch.swift; sourceTree = "<group>"; };
+		3A80392F27311ACD0044803F /* URLImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageViewModel.swift; sourceTree = "<group>"; };
+		3A80393127311AE30044803F /* URLImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
+		3A80393327312A1E0044803F /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		3A80393527312A2B0044803F /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		3A80393727312AC20044803F /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		3A80393927312B9A0044803F /* LoadingBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingBannerView.swift; sourceTree = "<group>"; };
+		3A80393B2731382F0044803F /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		3A80393D273143EB0044803F /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A47A36E2731936D00A509B6 /* SwiftAudioPlayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,10 +130,15 @@
 		3A8038E82731048F0044803F /* MonsterSiren */ = {
 			isa = PBXGroup;
 			children = (
+				3A803919273104B50044803F /* MonsterSiren.entitlements */,
 				3A8038E92731048F0044803F /* AppDelegate.swift */,
 				3A8038EB2731048F0044803F /* SceneDelegate.swift */,
-				3A8038ED2731048F0044803F /* ViewController.swift */,
-				3A8038EF2731048F0044803F /* Main.storyboard */,
+				3A80391D273106430044803F /* ContentsView.swift */,
+				3A803921273109350044803F /* Main.storyboard */,
+				3A80392C273111070044803F /* Tool */,
+				3A80392427310A230044803F /* Model */,
+				3A80392527310A280044803F /* ViewModel */,
+				3A80392327310A200044803F /* View */,
 				3A8038F2273104910044803F /* Assets.xcassets */,
 				3A8038F4273104910044803F /* LaunchScreen.storyboard */,
 				3A8038F7273104910044803F /* Info.plist */,
@@ -127,6 +163,48 @@
 			path = MonsterSirenUITests;
 			sourceTree = "<group>";
 		};
+		3A80392327310A200044803F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3A80391B273106240044803F /* AlbumsView.swift */,
+				3A80393D273143EB0044803F /* AlbumDetailView.swift */,
+				3A80393127311AE30044803F /* URLImageView.swift */,
+				3A80393327312A1E0044803F /* TabBarView.swift */,
+				3A80393B2731382F0044803F /* PlayerView.swift */,
+				3A80393727312AC20044803F /* RootView.swift */,
+				3A80393927312B9A0044803F /* LoadingBannerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3A80392427310A230044803F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3A80392627310AE20044803F /* Album.swift */,
+				3A47A36A27318BDD00A509B6 /* PlayQueue.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3A80392527310A280044803F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3A80392827310E9B0044803F /* MainViewModel.swift */,
+				3A80392F27311ACD0044803F /* URLImageViewModel.swift */,
+				3A80393527312A2B0044803F /* PlayerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3A80392C273111070044803F /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				3A80392D273111140044803F /* APIfetch.swift */,
+				3A47A36F2731944100A509B6 /* Extensions.swift */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +221,9 @@
 			dependencies = (
 			);
 			name = MonsterSiren;
+			packageProductDependencies = (
+				3A47A36D2731936D00A509B6 /* SwiftAudioPlayer */,
+			);
 			productName = MonsterSiren;
 			productReference = 3A8038E62731048F0044803F /* MonsterSiren.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +296,9 @@
 				Base,
 			);
 			mainGroup = 3A8038DD2731048F0044803F;
+			packageReferences = (
+				3A47A36C2731936D00A509B6 /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */,
+			);
 			productRefGroup = 3A8038E72731048F0044803F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -231,9 +315,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A803922273109350044803F /* Main.storyboard in Resources */,
 				3A8038F6273104910044803F /* LaunchScreen.storyboard in Resources */,
 				3A8038F3273104910044803F /* Assets.xcassets in Resources */,
-				3A8038F12731048F0044803F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,9 +342,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A8038EE2731048F0044803F /* ViewController.swift in Sources */,
+				3A80391C273106240044803F /* AlbumsView.swift in Sources */,
+				3A80392727310AE20044803F /* Album.swift in Sources */,
+				3A80393227311AE30044803F /* URLImageView.swift in Sources */,
+				3A80393A27312B9B0044803F /* LoadingBannerView.swift in Sources */,
+				3A80393C2731382F0044803F /* PlayerView.swift in Sources */,
+				3A47A36B27318BDD00A509B6 /* PlayQueue.swift in Sources */,
+				3A80393427312A1E0044803F /* TabBarView.swift in Sources */,
+				3A80392E273111140044803F /* APIfetch.swift in Sources */,
+				3A80391E273106430044803F /* ContentsView.swift in Sources */,
+				3A80393027311ACD0044803F /* URLImageViewModel.swift in Sources */,
 				3A8038EA2731048F0044803F /* AppDelegate.swift in Sources */,
+				3A80393E273143EB0044803F /* AlbumDetailView.swift in Sources */,
+				3A80393827312AC20044803F /* RootView.swift in Sources */,
 				3A8038EC2731048F0044803F /* SceneDelegate.swift in Sources */,
+				3A47A3702731944100A509B6 /* Extensions.swift in Sources */,
+				3A80392927310E9B0044803F /* MainViewModel.swift in Sources */,
+				3A80393627312A2B0044803F /* PlayerViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +395,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		3A8038EF2731048F0044803F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3A8038F02731048F0044803F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3A8038F4273104910044803F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -437,6 +527,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MonsterSiren/MonsterSiren.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8Q2A6VDAQN;
@@ -445,8 +536,11 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -454,6 +548,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tk.p1atdev.MonsterSiren;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -465,6 +560,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MonsterSiren/MonsterSiren.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8Q2A6VDAQN;
@@ -473,8 +569,11 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -482,6 +581,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tk.p1atdev.MonsterSiren;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -624,6 +724,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3A47A36C2731936D00A509B6 /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tanhakabir/SwiftAudioPlayer.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3A47A36D2731936D00A509B6 /* SwiftAudioPlayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3A47A36C2731936D00A509B6 /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */;
+			productName = SwiftAudioPlayer;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3A8038DE2731048F0044803F /* Project object */;
 }
