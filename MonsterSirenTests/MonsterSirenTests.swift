@@ -18,9 +18,15 @@ class MonsterSirenTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testExample() async throws {
+        
+        let albumsModel = AlbumsViewModel()
+        
+        await albumsModel.fetch(completion: { _ in
+            print("fin")
+        })
+        
+        print("Albums:", albumsModel.albums)
     }
 
     func testPerformanceExample() throws {
