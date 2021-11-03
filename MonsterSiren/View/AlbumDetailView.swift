@@ -140,69 +140,68 @@ struct AlbumDetailView: View {
                     if let songs = songs {
                         ForEach(0..<songs.count) { index in
                             let song = songs[index]
-                            
-                            ZStack {
-                                Rectangle()
-                                    .foregroundColor(
-                                        overSong?.id == song.id
-                                        ? Color(.gray).opacity(0.4)
-                                        : Color(.black)
-                                    )
+                            Button(action: {
+                                // 曲を再生する
+                                playerViewModel.play(song: song, albumDetail: albumDetail)
                                 
-                                HStack {
+                            }, label: {
+                                ZStack {
+                                    Rectangle()
+                                        .foregroundColor(
+                                            overSong?.id == song.id
+                                            ? Color(.gray).opacity(0.4)
+                                            : Color(.black)
+                                        )
                                     
-                                    // ホバー中は再生ボタンを出す
-                                    if overSong?.id == song.id {
-                                        Button(action: {
-                                            // 曲を再生する
-                                            playerViewModel.play(song: song, albumDetail: albumDetail)
-                                            
-                                        }, label: {
+                                    HStack {
+                                        
+                                        // ホバー中は再生ボタンを出す
+                                        if overSong?.id == song.id {
                                             Image(systemName: "play.fill")
                                                 .frame(width: 30, height: 30)
                                                 .foregroundColor(.white)
                                                 .font(.title)
                                                 .padding()
-                                        })
+                                        } else {
+                                            Text(String(index+1))
+                                                .frame(width: 30, height: 30)
+                                                .foregroundColor(.white)
+                                                .font(.title.bold())
+                                                .padding()
+                                        }
                                         
-                                    } else {
-                                        Text(String(index+1))
+                                        VStack(alignment: .leading) {
+                                            Text(song.name)
+                                                .font(.system(size: 24))
+                                            Text(song.artistes.joined(separator: ", "))
+                                                .font(.system(size: 18))
+                                                .opacity(0.8)
+                                        }
+                                        
+                                        Spacer()
+                                        
+                                        Image("rhodes")
+                                            .resizable()
                                             .frame(width: 30, height: 30)
                                             .foregroundColor(.white)
-                                            .font(.title.bold())
-                                            .padding()
+                                            .opacity(0.4)
                                     }
-                                    
-                                    VStack(alignment: .leading) {
-                                        Text(song.name)
-                                            .font(.system(size: 24))
-                                        Text(song.artistes.joined(separator: ", "))
-                                            .font(.system(size: 18))
-                                            .opacity(0.8)
+                                    .padding()
+                                }
+                                .onHover { over in
+                                    if over {
+                                        overSong = song
+                                    } else {
+                                        overSong = nil
                                     }
-                                    
-                                    Spacer()
-                                    
-                                    Image("rhodes")
-                                        .resizable()
-                                        .frame(width: 30, height: 30)
-                                        .foregroundColor(.white)
-                                        .opacity(0.4)
                                 }
-                                .padding()
-                            }
-                            .onHover { over in
-                                if over {
-                                    overSong = song
-                                } else {
-                                    overSong = nil
-                                }
-                            }
+                            })
+                                .buttonStyle(PlainButtonStyle())
                         }
                     }
                 }
                 .padding(.top, 50)
-                .padding(.horizontal, 128)
+                .padding(.horizontal, 64)
                 .onAppear {
                     withAnimation {
                         loaded = false
