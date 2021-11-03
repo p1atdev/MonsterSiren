@@ -23,7 +23,7 @@ class PlayQueue {
     var songsQueue: [Song] = []
     
     /// 詳細を含んだリスト
-    var fullSongsQueue: [FullSongData] = []
+    var fullSongsQueue: Dictionary<Int, FullSongData> = [:]
     
     /// 生成する
     func genereteQueue(currentSong song: Song ,albumDetail album: AlbumDetail) {
@@ -54,31 +54,15 @@ class PlayQueue {
         
     }
     
-    /// 生成する
-    func genereteQueue(albumDetail album: AlbumDetail) {
-        // 曲の取得
-        switch playType {
-            // もし一曲だけの場合はそのまま継続なので何もしない？
-        case "oneAlbum":
-            songsQueue = album.songs
-        case "allSongs":
-            getAllSongs(completion: { allSongs in
-                self.songsQueue = allSongs ?? []
-            })
-        default:
-            break
-        }
+    /// シャッフルする
+    func shuffleQueue() {
+        let random = (0..<fullSongsQueue.count).shuffled()
+        let tmp = fullSongsQueue
         
-        // シャッフルするならシャッフル
-        if isShuffled {
-            songsQueue = songsQueue.shuffled()
+        // シャッフル
+        for i in 0..<fullSongsQueue.count {
+            fullSongsQueue[i] = tmp[random[i]]
         }
-        
-        // キューを更新
-        DispatchQueue.global().async {
-            self.updateQueue()
-        }
-        
     }
     
     /// 全てのsongを取得する
@@ -107,9 +91,9 @@ class PlayQueue {
     private func updateQueue() {
         // まずは消して
         SAPlayer.shared.audioQueued = []
-        fullSongsQueue = []
+        fullSongsQueue = [:]
         
-        for song in songsQueue {
+        for (index, song) in songsQueue.enumerated() {
             guard let url = URL(string: "https://monster-siren.hypergryph.com/api/song/\(song.id)") else { return }
             
             URLSession.shared.dataTask(with: url) {(data, response, error) in
@@ -121,31 +105,29 @@ class PlayQueue {
                     
                     let songDetail = (try JSONDecoder().decode(SongDetailData.self, from: songDetailData)).data
                     
-                    let songUrl = songDetail.sourceUrl
-                    
                     // アートワークも取得する
                     let albumId = songDetail.albumCid
                     
                     Album.getDetail(id: albumId) { albumDetail in
                         guard let albumDetail: AlbumDetail = albumDetail else { return }
-                        guard let songUrl: URL = URL(string: songUrl) else { return }
                         
                         /// 全ての曲情報が詰まったデータ
                         let fullSongData = FullSongData(songDetail: songDetail,
                                                         albumDetail: albumDetail)
                         
                         // ロック画面に表示されるやつをセットする
-                        SAPlayer.shared.queueRemoteAudio(withRemoteUrl: songUrl,
-                                                         mediaInfo: fullSongData.lockScreenParameter)
-                        
+//                        SAPlayer.shared.queueRemoteAudio(withRemoteUrl: songUrl,
+//                                                         mediaInfo: fullSongData.lockScreenParameter)
+//
                         // キューに保存する
-                        self.fullSongsQueue.append(fullSongData)
+                        self.fullSongsQueue[index + 1] = fullSongData
                     }
                 } catch {
                     print("Error: updateQueue,", error)
                 }
             }
             .resume()
+            
         }
         
     }
