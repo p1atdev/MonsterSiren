@@ -44,6 +44,17 @@ class PlayerViewModel: ObservableObject {
         _ = SAPlayer.Updates.AudioQueue.subscribe { audioQueue in
             print("AudioQueue: ", audioQueue)
         }
+        
+        _ = SAPlayer.Updates.PlayingStatus.subscribe { status in
+            switch status {
+            case .paused:
+                self.isPlaying = false
+            case .playing:
+                self.isPlaying = true
+            default:
+                break
+            }
+        }
     }
     
     
@@ -69,7 +80,6 @@ class PlayerViewModel: ObservableObject {
                     SAPlayer.shared.play()
                     
                     withAnimation {
-                        self.isPlaying = true
                         self.elapsedTime = 0
                     }
                     
@@ -94,7 +104,6 @@ class PlayerViewModel: ObservableObject {
     
     /// 再生と停止を切り替え
     func togglePlayStop() {
-        isPlaying.toggle()
         SAPlayer.shared.togglePlayAndPause()
     }
     
