@@ -9,6 +9,15 @@ import SwiftUI
 
 struct PlayerView: View {
     
+    /// シャッフルするか
+    @AppStorage("isShuffled") private var isShuffled: Bool = false
+    /// ループ再生するか
+    @AppStorage("isLoop") private var isLoop: Bool = false
+    /// 再生する曲のタイプ
+    /// oneSong | oneAlbum | allSongs | normal
+    @AppStorage("playType") private var playType: String = "oneAlbum"
+    
+    /// プレーヤー
     @StateObject var playerViewModel: PlayerViewModel
     
     /// 曲名のスクロール
@@ -119,9 +128,59 @@ struct PlayerView: View {
                 .frame(height: 36)
                 .padding(.horizontal)
 //                .padding(.top, 8)
-                .padding(.bottom, 32)
+                .padding(.bottom, 12)
                 .font(.system(size: 32))
                 .foregroundColor(.white)
+                
+                // シャッフルとかループとかの設定
+                HStack {
+                    // シャッフルかどうか
+                    Button(action: {
+                        isShuffled.toggle()
+                    }, label: {
+                        Image(systemName: "shuffle")
+                            .foregroundColor(isShuffled ? .accentColor : .white)
+                    })
+                    
+                     Spacer()
+                    
+                    // ループのタイプ
+                    Button(action: {
+                        switch playType {
+                        case "oneAlbum":
+                            playType = "oneSong"
+                        case "oneSong":
+                            playType = "allSongs"
+                        case "allSongs":
+                            playType = "normal"
+                            isLoop = false
+                        case "normal":
+                            playType = "oneAlbum"
+                            isLoop = true
+                        default:
+                            playType = "oneAlbum"
+                            isLoop = true
+                        }
+                    }, label: {
+                        Image(systemName:
+                                { switch playType {
+                                case "oneSong":
+                                    return isLoop ? "repeat.1" : "repeat"
+                                case "oneAlbum":
+                                    return "repeat"
+                                case "allSongs":
+                                    return isLoop ? "infinity" : "repeat"
+                                default:
+                                    return "repeat"
+                                }}()
+                        )
+                            .foregroundColor(isLoop ? .accentColor : .white)
+                    })
+                }
+                .frame(height: 32)
+                .padding(.horizontal)
+                .padding(.bottom, 32)
+                .font(.system(size: 28))
             }
         }
     }

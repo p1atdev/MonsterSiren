@@ -194,13 +194,41 @@ struct SongDetail: Codable, Identifiable {
 
 struct AllSongs: Codable {
     var code: Int
-    var message: String
-    var data: [Song]
+    var msg: String
+    var data: AllSongsData
     
     enum CodingKeys: String, CodingKey {
         case code,
-             message = "msg",
+             msg,
              data
+    }
+}
+
+struct AllSongsData: Codable {
+    var list: [AllSongsDataSong]
+    var autoplay: Bool?
+    
+    enum CodinKeys: String, CodingKey {
+        case list,
+             autoplay
+    }
+}
+
+struct AllSongsDataSong: Codable {
+    var id: String
+    var name: String
+    var albumCid: String
+    var artists: [String]
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "cid",
+             name,
+             albumCid,
+             artists
+    }
+    
+    func convertToSong() -> Song {
+        return Song(id: id, name: name, artistes: artists)
     }
 }
 
