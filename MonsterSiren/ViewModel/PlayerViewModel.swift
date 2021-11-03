@@ -39,7 +39,7 @@ class PlayerViewModel: ObservableObject {
     init() {
 //        DispatchQueue.global().async {
         _ = SAPlayer.Updates.Duration.subscribe { duration in
-            print("Duration: ", duration)
+            print("曲の長さ: ", duration, "秒")
             self.duration = duration
         }
         
@@ -49,11 +49,10 @@ class PlayerViewModel: ObservableObject {
             self.elapsedTime = elapsedTime
         }
         
-        _ = SAPlayer.Updates.AudioQueue.subscribe { url in
-            print("AudioQueue: ", url)
-            
-            
-        }
+//        _ = SAPlayer.Updates.AudioQueue.subscribe { url in
+//            print("AudioQueue: ", url)
+//            
+//        }
         
         _ = SAPlayer.Updates.PlayingStatus.subscribe { status in
             print(status)

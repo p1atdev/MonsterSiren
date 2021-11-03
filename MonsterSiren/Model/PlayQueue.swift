@@ -28,28 +28,30 @@ class PlayQueue {
     /// 生成する
     func genereteQueue(currentSong song: Song ,albumDetail album: AlbumDetail) {
         
-        // 曲の取得
-        switch playType {
-        case "oneSong":
-            songsQueue = [song]
-        case "oneAlbum":
-            songsQueue = album.songs
-        case "allSongs":
-            getAllSongs(completion: { allSongs in
-                self.songsQueue = allSongs ?? []
-            })
-        default:
-            break
-        }
-        
-        // シャッフルするならシャッフル
-        if isShuffled {
-            songsQueue = songsQueue.shuffled()
-        }
-        
-        // キューを更新
         DispatchQueue.global().async {
+            // 曲の取得
+            switch self.playType {
+            case "oneSong":
+                self.songsQueue = [song]
+            case "oneAlbum":
+                self.songsQueue = album.songs
+            case "allSongs":
+                self.getAllSongs(completion: { allSongs in
+                    self.songsQueue = allSongs ?? []
+                })
+            default:
+                break
+            }
+            
+            // シャッフルするならシャッフル
+            if self.isShuffled {
+                self.songsQueue = self.songsQueue.shuffled()
+            }
+            
+            // キューを更新
             self.updateQueue()
+            
+            print("キュー更新完了")
         }
         
     }
@@ -73,7 +75,7 @@ class PlayQueue {
             do {
                 if let allSongs = data {
                     let decodedData = try JSONDecoder().decode(AllSongs.self, from: allSongs)
-                    completion(decodedData.data)
+                    completion(decodedData.data.list.map({ $0.convertToSong() }))
                     
                 } else {
                     print("No data: getAllSongs,", data as Any)

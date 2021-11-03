@@ -115,7 +115,7 @@ struct AlbumDetailView: View {
                     
                     Button(action: {
                         
-                        // TODO: 再生する
+                        // アルバムの一番上から再生
                         guard let songs = songs else { return }
                         playerViewModel.play(song: songs[0], albumDetail: albumDetail)
                         
