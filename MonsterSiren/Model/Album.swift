@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import SwiftAudioPlayer
+import UIKit
 
 struct AlbumsData: Codable, Identifiable {
     var id: String = UUID().uuidString
@@ -199,5 +201,54 @@ struct AllSongs: Codable {
         case code,
              message = "msg",
              data
+    }
+}
+
+struct FullSongData {
+    var songId: String
+    var albumId: String
+    var songName: String
+    var albumName: String
+    
+    /// 音源
+    var sourceUrl: String
+    /// 歌詞
+    var lyricUrl: String?
+    var mvUrl: String?
+    var mvCoverUrl: String?
+    var artists: [String]
+    
+    /// アルバムの画像
+    var coverUrl: String
+    /// バナーの画像
+    var coverDeUrl: String
+    
+    var songDetail: SongDetail
+    var albumDetail: AlbumDetail
+    
+    init(songDetail song: SongDetail, albumDetail album: AlbumDetail) {
+        self.songId = song.id
+        self.albumId = album.id
+        self.songName = song.name
+        self.albumName = album.name
+        self.sourceUrl = song.sourceUrl
+        self.lyricUrl = song.lyricUrl
+        self.mvUrl = song.mvUrl
+        self.mvCoverUrl = song.mvCoverUrl
+        self.artists = song.artists
+        self.coverUrl = album.coverUrl
+        self.coverDeUrl = album.coverDeUrl
+        
+        self.songDetail = song
+        self.albumDetail = album
+    }
+    
+    // ロック画面用のやつを生成する
+    var lockScreenParameter: SALockScreenInfo {
+        return .init(title: self.songName,
+                     artist: self.artists.joined(separator: ", "),
+                     albumTitle: self.albumName,
+                     artwork: UIImage(url: self.coverUrl),
+                     releaseDate: Int(URL(string: self.sourceUrl)!.pathComponents[5])!)
     }
 }

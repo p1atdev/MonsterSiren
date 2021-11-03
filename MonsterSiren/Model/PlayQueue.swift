@@ -22,6 +22,9 @@ class PlayQueue {
     /// 今再生している曲は含まない
     var songsQueue: [Song] = []
     
+    /// 詳細を含んだリスト
+    var fullSongsQueue: [FullSongData] = []
+    
     /// 生成する
     func genereteQueue(currentSong song: Song ,albumDetail album: AlbumDetail) {
         
@@ -29,6 +32,33 @@ class PlayQueue {
         switch playType {
         case "oneSong":
             songsQueue = [song]
+        case "oneAlbum":
+            songsQueue = album.songs
+        case "allSongs":
+            getAllSongs(completion: { allSongs in
+                self.songsQueue = allSongs ?? []
+            })
+        default:
+            break
+        }
+        
+        // シャッフルするならシャッフル
+        if isShuffled {
+            songsQueue = songsQueue.shuffled()
+        }
+        
+        // キューを更新
+        DispatchQueue.global().async {
+            self.updateQueue()
+        }
+        
+    }
+    
+    /// 生成する
+    func genereteQueue(albumDetail album: AlbumDetail) {
+        // 曲の取得
+        switch playType {
+            // もし一曲だけの場合はそのまま継続なので何もしない？
         case "oneAlbum":
             songsQueue = album.songs
         case "allSongs":
@@ -77,6 +107,7 @@ class PlayQueue {
     private func updateQueue() {
         // まずは消して
         SAPlayer.shared.audioQueued = []
+        fullSongsQueue = []
         
         for song in songsQueue {
             guard let url = URL(string: "https://monster-siren.hypergryph.com/api/song/\(song.id)") else { return }
@@ -98,13 +129,17 @@ class PlayQueue {
                     Album.getDetail(id: albumId) { albumDetail in
                         guard let albumDetail: AlbumDetail = albumDetail else { return }
                         guard let songUrl: URL = URL(string: songUrl) else { return }
+                        
+                        /// 全ての曲情報が詰まったデータ
+                        let fullSongData = FullSongData(songDetail: songDetail,
+                                                        albumDetail: albumDetail)
+                        
+                        // ロック画面に表示されるやつをセットする
                         SAPlayer.shared.queueRemoteAudio(withRemoteUrl: songUrl,
-                                                         mediaInfo:
-                                                                .init(title: songDetail.name,
-                                                                      artist: songDetail.artists.joined(separator: ", "),
-                                                                      albumTitle: albumDetail.name,
-                                                                      artwork: UIImage(url: albumDetail.coverUrl),
-                                                                      releaseDate: Int(songUrl.pathComponents[5])!))
+                                                         mediaInfo: fullSongData.lockScreenParameter)
+                        
+                        // キューに保存する
+                        self.fullSongsQueue.append(fullSongData)
                     }
                 } catch {
                     print("Error: updateQueue,", error)

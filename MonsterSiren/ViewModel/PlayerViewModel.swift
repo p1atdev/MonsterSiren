@@ -11,6 +11,14 @@ import SwiftAudioPlayer
 
 class PlayerViewModel: ObservableObject {
     
+    /// シャッフルするか
+    @AppStorage("isShuffled") private var isShuffled: Bool = false
+    /// ループ再生するか
+    @AppStorage("isLoop") private var isLoop: Bool = false
+    /// 再生する曲のタイプ
+    /// oneSong | oneAlbum | allSongs
+    @AppStorage("playType") private var playType: String = "oneAlbum"
+    
     /// 現在再生されている曲
     @Published var currentSong: SongDetail?
     
@@ -41,8 +49,14 @@ class PlayerViewModel: ObservableObject {
             self.elapsedTime = elapsedTime
         }
         
-        _ = SAPlayer.Updates.AudioQueue.subscribe { audioQueue in
-            print("AudioQueue: ", audioQueue)
+        _ = SAPlayer.Updates.AudioQueue.subscribe { url in
+            print("AudioQueue: ", url)
+            
+            // 次に再生される曲
+            guard let newSongData = self.playQueue.fullSongsQueue.filter({$0.sourceUrl == url.absoluteString }).first else { return }
+            // プレーヤーの情報を更新する
+            self.currentSong = newSongData.songDetail
+            self.currentAlbum = newSongData.albumDetail
         }
         
         _ = SAPlayer.Updates.PlayingStatus.subscribe { status in
@@ -51,6 +65,12 @@ class PlayerViewModel: ObservableObject {
                 self.isPlaying = false
             case .playing:
                 self.isPlaying = true
+            case .ended:
+                // 再生終了時、もしループが有効ならばキューを再生成して自動で続行
+                if self.isLoop {
+                    self.playQueue.genereteQueue(albumDetail: self.currentAlbum!)
+                }
+                
             default:
                 break
             }
