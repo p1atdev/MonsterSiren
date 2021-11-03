@@ -9,21 +9,21 @@ import SwiftUI
 
 struct TabBarView: View {
     
-    @ObservedObject var playerViewModel: PlayerViewModel
+    @StateObject var playerViewModel: PlayerViewModel
     
     /// ウィンドウのサイズ
     var window = UIScreen.main.bounds
     
     var body: some View {
         VStack {
-            VStack {
-                // 他のページへ移るボタン
-                LinkButtonView(title: "一覧")
-                LinkButtonView(title: "検索")
-                LinkButtonView(title: "資料")
-            }
-//            .frame(minHeight: 180, maxHeight: 360)
-            .padding()
+//            VStack {
+//                // 他のページへ移るボタン
+//                LinkButtonView(title: "一覧")
+//                LinkButtonView(title: "検索")
+//                LinkButtonView(title: "資料")
+//            }
+////            .frame(minHeight: 180, maxHeight: 360)
+//            .padding()
             
             Spacer()
             

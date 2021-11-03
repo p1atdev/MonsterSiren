@@ -19,7 +19,7 @@ struct AlbumsView: View {
     @State var albumToPresent: Album?
     
     /// プレーヤーのやつ
-    @ObservedObject var playerViewModel: PlayerViewModel
+    @StateObject var playerViewModel: PlayerViewModel
     
     /// ウィンドウのサイズ
     var window = UIScreen.main.bounds
@@ -47,10 +47,12 @@ struct AlbumsView: View {
             }
             .opacity(albumToPresent == nil ? 1.0 : 0.0)
             .onAppear {
-                DispatchQueue.global().async {
-                    albumsModel.fetch() { status in
-                        withAnimation(.linear(duration: 0.3).delay(0.5)) {
-                            loaded = status
+                if albumsModel.albums == nil {
+                    DispatchQueue.global().async {
+                        albumsModel.fetch() { status in
+                            withAnimation(.linear(duration: 0.3).delay(0.5)) {
+                                loaded = status
+                            }
                         }
                     }
                 }

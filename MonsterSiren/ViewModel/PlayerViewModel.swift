@@ -17,12 +17,37 @@ class PlayerViewModel: ObservableObject {
     /// 曲のアルバム
     @Published var currentAlbum: AlbumDetail?
     
-    /// 再生の進捗(%)
-    @Published var progress: Double = 0
+    /// 曲の総時間
+    @Published var duration: Double = 0.0
+    
+    /// 再生の進捗(秒)
+    @Published var elapsedTime: Double = 0.0
+    
+    /// 現在再生しているか
+    @Published var isPlaying: Bool = false
     
     var playQueue = PlayQueue()
     
+    init() {
+//        DispatchQueue.global().async {
+        _ = SAPlayer.Updates.Duration.subscribe { duration in
+            print("Duration: ", duration)
+            self.duration = duration
+        }
+        
+        _ = SAPlayer.Updates.ElapsedTime.subscribe { [weak self] elapsedTime in
+            guard let self = self else { return }
+//            print("ElapsedTime: ", elapsedTime)
+            self.elapsedTime = elapsedTime
+        }
+        
+        _ = SAPlayer.Updates.AudioQueue.subscribe { audioQueue in
+            print("AudioQueue: ", audioQueue)
+        }
+    }
     
+    
+    /// 再生
     func play(song: Song, albumDetail album: AlbumDetail?) {
         // アルバムの詳細を手に入れる
         withAnimation {
@@ -43,6 +68,11 @@ class PlayerViewModel: ObservableObject {
                     SAPlayer.shared.startRemoteAudio(withRemoteUrl: url)
                     SAPlayer.shared.play()
                     
+                    withAnimation {
+                        self.isPlaying = true
+                        self.elapsedTime = 0
+                    }
+                    
                     // ロック画面での表示の設定、キューの生成
                     if let album = album {
                         // 情報のセット
@@ -62,11 +92,24 @@ class PlayerViewModel: ObservableObject {
         
     }
     
-    func stop() {
-        
+    /// 再生と停止を切り替え
+    func togglePlayStop() {
+        isPlaying.toggle()
+        SAPlayer.shared.togglePlayAndPause()
     }
     
-    func resume() {
-        
+    /// 次の曲にする
+    func skipForward() {
+        SAPlayer.shared.skipForward()
+    }
+    
+    /// 前の曲にする
+    func skipBackwards() {
+        SAPlayer.shared.skipBackwards()
+    }
+    
+    /// 再生位置を変更する
+    func seekTo(seconds: Double) {
+        SAPlayer.shared.seekTo(seconds: seconds)
     }
 }

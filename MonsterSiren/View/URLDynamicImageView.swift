@@ -1,15 +1,15 @@
 //
-//  URLImageView.swift
-//  URLImageView
+//  URLDynamicImageView.swift
+//  MonsterSiren
 //
-//  Created by 周廷叡 on 2021/11/02.
+//  Created by 周廷叡 on 2021/11/03.
 //
 
 import SwiftUI
 
-struct URLImageView: View {
+struct URLDynamicImageView: View {
     
-    @StateObject var viewModel: URLImageViewModel
+    @ObservedObject var viewModel: URLImageViewModel
     
     var body: some View {
         if let imageData = self.viewModel.downloadData {
