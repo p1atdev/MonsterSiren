@@ -25,7 +25,7 @@ struct AlbumDetailView: View {
     @State private var overSong: Song?
     
     /// プレイヤー
-    @ObservedObject var playerViewModel: PlayerViewModel
+    @StateObject var playerViewModel: PlayerViewModel
     
     /// ウィンドウのサイズ
     var window = UIScreen.main.bounds
@@ -116,6 +116,8 @@ struct AlbumDetailView: View {
                     Button(action: {
                         
                         // TODO: 再生する
+                        guard let songs = songs else { return }
+                        playerViewModel.play(song: songs[0], albumDetail: albumDetail)
                         
                     }, label: {
                         

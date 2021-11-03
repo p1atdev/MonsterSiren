@@ -28,7 +28,7 @@ struct RootView: View {
             
             HStack(spacing: 0) {
                 TabBarView(playerViewModel: playerViewModel)
-                    .frame(maxWidth: min(window.width / 5, 400))
+                    .frame(maxWidth: min(window.width / 4.5, 400))
                     .padding(.top, 32)
                 
 //                NavigationView {

@@ -9,9 +9,9 @@ import SwiftUI
 
 struct PlayerView: View {
     
-    @ObservedObject var playerViewModel: PlayerViewModel
+    @StateObject var playerViewModel: PlayerViewModel
     
-    // 曲名のスクロール
+    /// 曲名のスクロール
     @State var scrollText: Bool = false
     
     /// ウィンドウのサイズ
@@ -24,14 +24,15 @@ struct PlayerView: View {
                 Spacer()
                 
                 if let album = playerViewModel.currentAlbum {
-                    URLImageView(viewModel: .init(url: album.coverUrl))
+                    URLDynamicImageView(viewModel: .init(url: album.coverUrl))
                         .aspectRatio(1, contentMode: .fit)
                         .frame(minWidth: proxy.size.width - 16,
                                minHeight: proxy.size.width - 16)
                         .shadow(color: .black, radius: 12,
                                 x: -4, y: 8)
                         .padding(.horizontal)
-                    //                        .padding(.bottom)
+                        .offset(x: -4)
+                    
                 } else {
                     Image("disk")
                         .resizable()
@@ -41,7 +42,7 @@ struct PlayerView: View {
                         .shadow(color: .black, radius: 12,
                                 x: -4, y: 8)
                         .padding(.horizontal)
-                    //                        .padding(.bottom)
+                        .offset(x: -4)
                 }
                 
                 
@@ -68,23 +69,59 @@ struct PlayerView: View {
                         .frame(width: 30, height: 30)
                 }
                 .padding(.horizontal, 16)
-                .padding(.bottom, 32)
                 //            Spacer()
                 
                 // スライダー
-//                Slider()
-                    
+                Slider(value: Binding(
+                    get: {
+                        playerViewModel.elapsedTime
+                    },
+                    set: { newTime in
+                        playerViewModel.seekTo(seconds: newTime)
+                    }
+                ),
+                       in: 0...playerViewModel.duration)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 8)
+                    .padding(.bottom, 12)
+                
                 
                 // ボタン系
-                //            HStack {
-                //
-                //                // 前の曲
-                //
-                //                // 再生、停止
-                //
-                //                // 次の曲
-                //
-                //            }
+                HStack(alignment: .center) {
+                    // 前の曲
+                    Button(action: {
+                        playerViewModel.skipBackwards()
+                    }, label: {
+                        Image(systemName: "backward.end.fill")
+                    })
+                        .keyboardShortcut(.leftArrow, modifiers: [.shift])
+                    
+                    Spacer()
+                    
+                    // 再生、停止
+                    Button(action: {
+                        playerViewModel.togglePlayStop()
+                    }, label: {
+                        Image(systemName: playerViewModel.isPlaying ? "pause.fill" : "play.fill")
+                    })
+                        .keyboardShortcut(.space, modifiers: [])
+                    
+                    Spacer()
+                    
+                    // 次の曲
+                    Button(action: {
+                        playerViewModel.skipForward()
+                    }, label: {
+                        Image(systemName: "forward.end.fill")
+                    })
+                        .keyboardShortcut(.rightArrow, modifiers: [.shift])
+                }
+                .frame(height: 36)
+                .padding(.horizontal)
+//                .padding(.top, 8)
+                .padding(.bottom, 32)
+                .font(.system(size: 32))
+                .foregroundColor(.white)
             }
         }
     }
