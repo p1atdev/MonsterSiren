@@ -71,6 +71,10 @@ struct PlayerView: View {
                 .padding(.bottom, 32)
                 //            Spacer()
                 
+                // スライダー
+//                Slider()
+                    
+                
                 // ボタン系
                 //            HStack {
                 //

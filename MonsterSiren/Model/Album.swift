@@ -34,8 +34,31 @@ struct Album: Codable, Identifiable {
              artistes
     }
     
-    // AlbumDetailを取得する
+    /// AlbumDetailを取得する
     func getDetail(completion: @escaping (AlbumDetail?) -> Void) {
+        
+        guard let url = URL(string: "https://monster-siren.hypergryph.com/api/album/\(id)/detail") else { return }
+        
+        URLSession.shared.dataTask(with: url) {(data, response, error) in
+            do {
+                if let albumDetail = data {
+                    let decodedData = try JSONDecoder().decode(AlbumDetailData.self, from: albumDetail)
+                    completion(decodedData.data)
+                    
+                } else {
+                    print("No data: Album.getDetail,", data as Any)
+                    completion(nil)
+                }
+            } catch {
+                print("Error:  Album.getDetail,", error)
+                completion(nil)
+            }
+        }
+        .resume()
+    }
+    
+    /// idを指定してdetailを取得
+    static func getDetail(id: String, completion: @escaping (AlbumDetail?) -> Void) {
         
         guard let url = URL(string: "https://monster-siren.hypergryph.com/api/album/\(id)/detail") else { return }
         
@@ -108,14 +131,11 @@ struct Song: Codable, Identifiable {
     // SongDetail を取得する
     func getDetail(completion: @escaping (SongDetail?) -> Void) {
         guard let url = URL(string: "https://monster-siren.hypergryph.com/api/song/\(id)") else { return }
-        print("cid:", id)
         
         URLSession.shared.dataTask(with: url) {(data, response, error) in
             do {
                 if let songDetailData = data {
                     let decodedData = try JSONDecoder().decode(SongDetailData.self, from: songDetailData)
-                    print("songDetailData:", songDetailData)
-                    print("decodedData:", decodedData)
                     DispatchQueue.main.async {
                         completion(decodedData.data)
                     }
@@ -151,8 +171,8 @@ struct SongDetailData: Codable {
 struct SongDetail: Codable, Identifiable {
     var id: String
     var name: String
-    var albumCid: String?
-    var sourceUrl: String?
+    var albumCid: String
+    var sourceUrl: String
     var lyricUrl: String?
     var mvUrl: String?
     var mvCoverUrl: String?
@@ -161,6 +181,7 @@ struct SongDetail: Codable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case id = "cid",
              name,
+             albumCid,
              sourceUrl,
              lyricUrl,
              mvUrl,
