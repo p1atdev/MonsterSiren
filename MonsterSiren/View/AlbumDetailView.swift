@@ -57,7 +57,6 @@ struct AlbumDetailView: View {
                                 )
                         }
                     }
-//                    .frame(height: window.height / 3, alignment: .top)
                     .clipped()
                     
                     // アルバムのジャケ画像とアルバム名
@@ -87,6 +86,7 @@ struct AlbumDetailView: View {
                         Button(action: {
                             withAnimation {
                                 album = nil
+                                loaded = true
                             }
                         }, label: {
                             ZStack(alignment: .leading) {
@@ -132,6 +132,7 @@ struct AlbumDetailView: View {
                             
                         }
                         .frame(width: 64, height: 64, alignment: .center)
+                        .offset(y: -32)
                         
                     })
                         .offset(x: -72)
@@ -142,6 +143,7 @@ struct AlbumDetailView: View {
                     if let songs = songs {
                         ForEach(0..<songs.count) { index in
                             let song = songs[index]
+                            
                             Button(action: {
                                 // 曲を再生する
                                 playerViewModel.play(song: song, albumDetail: albumDetail)
@@ -152,31 +154,39 @@ struct AlbumDetailView: View {
                                         .foregroundColor(
                                             overSong?.id == song.id
                                             ? Color(.gray).opacity(0.4)
+                                            : playerViewModel.currentSong?.id == song.id
+                                            ? Color(.white).opacity(0.1)
                                             : Color(.black)
                                         )
                                     
                                     HStack {
                                         
+                                        // 再生中は再生中のマークにする
+                                        if playerViewModel.currentSong?.id == song.id {
+                                            Image(systemName: "music.note")
+                                                .frame(width: 24, height: 24)
+                                                .font(.title)
+                                                .padding()
+                                        } else
                                         // ホバー中は再生ボタンを出す
                                         if overSong?.id == song.id {
                                             Image(systemName: "play.fill")
-                                                .frame(width: 30, height: 30)
-                                                .foregroundColor(.white)
+                                                .frame(width: 24, height: 24)
                                                 .font(.title)
                                                 .padding()
                                         } else {
                                             Text(String(index+1))
-                                                .frame(width: 30, height: 30)
-                                                .foregroundColor(.white)
+                                                .frame(width: 24, height: 24)
                                                 .font(.title.bold())
+                                                .fixedSize()
                                                 .padding()
                                         }
                                         
                                         VStack(alignment: .leading) {
                                             Text(song.name)
-                                                .font(.system(size: 24))
+                                                .font(.system(size: 20))
                                             Text(song.artistes.joined(separator: ", "))
-                                                .font(.system(size: 18))
+                                                .font(.system(size: 16))
                                                 .opacity(0.8)
                                         }
                                         
@@ -184,12 +194,13 @@ struct AlbumDetailView: View {
                                         
                                         Image("rhodes")
                                             .resizable()
-                                            .frame(width: 30, height: 30)
+                                            .frame(width: 24, height: 24)
                                             .foregroundColor(.white)
                                             .opacity(0.4)
                                     }
                                     .padding()
                                 }
+                                .foregroundColor(playerViewModel.currentSong?.id == song.id ? .accentColor : .white)
                                 .onHover { over in
                                     if over {
                                         overSong = song
@@ -219,6 +230,7 @@ struct AlbumDetailView: View {
                 
             }
             
-        }.background(Color.black)
+        }
+        .background(Color.black)
     }
 }
