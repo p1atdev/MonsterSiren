@@ -51,7 +51,7 @@ class PlayerViewModel: ObservableObject {
         
 //        _ = SAPlayer.Updates.AudioQueue.subscribe { url in
 //            print("AudioQueue: ", url)
-//            
+//
 //        }
         
         _ = SAPlayer.Updates.PlayingStatus.subscribe { status in
@@ -65,6 +65,7 @@ class PlayerViewModel: ObservableObject {
                 // 再生終了時、もしループが有効ならばキューを再生成して自動で続行する
                 
                 // 次に再生される曲
+                
                 guard let lastSongData = self.playQueue.fullSongsQueue.filter({$0.value.songId == self.currentSong!.id }).first else { return }
                 
                 // keyを取得して、次の曲を再生、もしなかった場合で場合分け
@@ -76,15 +77,21 @@ class PlayerViewModel: ObservableObject {
                 } else {
                     // これ以上曲はないので、頭から始める
                     // ループでなければ終了
-                    if !self.isLoop { return }
+                    if !self.isLoop {
+                        self.elapsedTime = 0
+                        return
+                    }
+                    
                     // もしシャッフルするなら
                     if self.isShuffled {
                         self.playQueue.shuffleQueue()
                     }
+                    
                     // 現在の曲とアルバムをセット
                     self.currentSong = self.playQueue.fullSongsQueue[0]?.songDetail
                     self.currentAlbum = self.playQueue.fullSongsQueue[0]?.albumDetail
                     
+                    print(self.playQueue.fullSongsQueue)
                 }
                 // 再生
                 self.play()
@@ -183,4 +190,50 @@ class PlayerViewModel: ObservableObject {
     func seekTo(seconds: Double) {
         SAPlayer.shared.seekTo(seconds: seconds)
     }
+    
+    /// playTypeを更新する
+    func updatePlayType(type: String? = nil) {
+        // typeを更新
+        if let type = type {
+            switch type {
+            case "oneSong":
+                playType = PlayType.oneAlbum.rawValue
+                isLoop = true
+            case "oneAlbum":
+                playType = PlayType.allSongs.rawValue
+                isLoop = true
+            case "allSongs":
+                playType = PlayType.normal.rawValue
+                isLoop = false
+            case "normal":
+                playType = PlayType.oneSong.rawValue
+                isLoop = true
+            default:
+                playType = PlayType.oneSong.rawValue
+            }
+        }
+    
+        guard let currentSong = currentSong else { return }
+        guard let currentAlbum = currentAlbum else { return }
+        
+        playQueue.updateQueue(currentSong: currentSong, albumDetail: currentAlbum)
+    }
+    
+    /// 現在のplayTypeをenumで返す
+    func getPlayType() -> PlayType {
+        switch playType {
+        case "oneSong": return .oneSong
+        case "oneAlbum": return .oneAlbum
+        case "allSongs":  return  .allSongs
+        case "normal": return .normal
+        default: return .normal
+        }
+    }
+}
+
+enum PlayType: String {
+    case oneSong = "oneSong"
+    case oneAlbum = "oneAlbum"
+    case allSongs = "allSongs"
+    case normal = "normal"
 }

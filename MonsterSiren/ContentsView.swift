@@ -11,7 +11,7 @@ struct ContentsView: View {
     
     var body: some View {
         RootView()
-            .frame(minWidth: 720 , minHeight: 570)
+            .frame(minWidth: 360 , minHeight: 570)
     }
 }
 

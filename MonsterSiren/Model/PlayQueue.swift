@@ -26,9 +26,10 @@ class PlayQueue {
     var fullSongsQueue: Dictionary<Int, FullSongData> = [:]
     
     /// 生成する
-    func genereteQueue(currentSong song: Song ,albumDetail album: AlbumDetail) {
+    func genereteQueue(currentSong song: Song, albumDetail album: AlbumDetail) {
         
         DispatchQueue.global().async {
+            var isNotNecessaryToUpdateQueue: Bool = false
             // 曲の取得
             switch self.playType {
             case "oneSong":
@@ -36,46 +37,105 @@ class PlayQueue {
             case "oneAlbum":
                 self.songsQueue = album.songs
             case "allSongs":
-                self.getAllSongs(completion: { allSongs in
+                isNotNecessaryToUpdateQueue = true
+                self.getAllSongs(currentSong: song, completion: { allSongs in
                     self.songsQueue = allSongs ?? []
+                    
+                    // シャッフルが必要ならシャッフル
+                    self.shuffleIfneeded()
+                    // キューを更新
+                    self.updateQueue()
+                    
+                    print("キュー更新開始")
                 })
+            case "normal":
+                self.songsQueue = album.songs
             default:
                 break
             }
             
+            if isNotNecessaryToUpdateQueue { return }
+            
             // シャッフルするならシャッフル
-            if self.isShuffled {
-                self.songsQueue = self.songsQueue.shuffled()
-            }
+            self.shuffleIfneeded()
             
             // キューを更新
             self.updateQueue()
             
-            print("キュー更新完了")
+            print("キュー更新開始")
         }
         
     }
     
-    /// シャッフルする
-    func shuffleQueue() {
-        let random = (0..<fullSongsQueue.count).shuffled()
-        let tmp = fullSongsQueue
+    /// 後からキューを更新する
+    func updateQueue(currentSong song: SongDetail, albumDetail album: AlbumDetail) {
         
-        // シャッフル
-        for i in 0..<fullSongsQueue.count {
-            fullSongsQueue[i] = tmp[random[i]]
+        DispatchQueue.global().async {
+            var isNotNecessaryToUpdateQueue: Bool = false
+            // 曲の取得
+            switch self.playType {
+            case "oneSong":
+                self.songsQueue = [song.convertToSong()]
+            case "oneAlbum":
+                self.songsQueue = album.songs
+            case "allSongs":
+                isNotNecessaryToUpdateQueue = true
+                self.getAllSongs(currentSong: song.convertToSong(), completion: { allSongs in
+                    self.songsQueue = allSongs ?? []
+                    
+                    // シャッフルが必要ならシャッフル
+                    self.shuffleIfneeded()
+                    // キューを更新
+                    self.updateQueue()
+                    
+                    print("キュー更新開始")
+                })
+            case "normal":
+                self.songsQueue = album.songs
+            default:
+                break
+            }
+            
+            if isNotNecessaryToUpdateQueue { return }
+            
+            // シャッフルするならシャッフル
+            self.shuffleIfneeded()
+            
+            // キューを更新
+            self.updateQueue()
+            
+            print("キュー更新開始")
         }
     }
     
     /// 全てのsongを取得する
-    private func getAllSongs(completion: @escaping ([Song]?) -> Void) {
+    private func getAllSongs(currentSong: Song, completion: @escaping ([Song]?) -> Void) {
         guard let url = URL(string: "https://monster-siren.hypergryph.com/api/songs") else { return }
         
         URLSession.shared.dataTask(with: url) {(data, response, error) in
             do {
                 if let allSongs = data {
                     let decodedData = try JSONDecoder().decode(AllSongs.self, from: allSongs)
-                    completion(decodedData.data.list.map({ $0.convertToSong() }))
+                    var tmpSongs = decodedData.data.list.sorted(by: { // アルバムidでソート
+                        if $0.albumCid == $1.albumCid {
+                            return $0.id < $1.id
+                        } else {
+                            return $0.albumCid < $1.albumCid
+                        }
+                    }).map({    // Songに変換
+                        $0.convertToSong()
+                    })
+                    
+                    // 今再生中のやつが一番最初に来るようにずらす
+                    for song in tmpSongs {
+                        if song.id == currentSong.id {
+                            break
+                        }
+                        tmpSongs.append(song)
+                        tmpSongs.removeFirst()
+                    }
+                    
+                    completion(tmpSongs)
                     
                 } else {
                     print("No data: getAllSongs,", data as Any)
@@ -117,12 +177,10 @@ class PlayQueue {
                         let fullSongData = FullSongData(songDetail: songDetail,
                                                         albumDetail: albumDetail)
                         
-                        // ロック画面に表示されるやつをセットする
-//                        SAPlayer.shared.queueRemoteAudio(withRemoteUrl: songUrl,
-//                                                         mediaInfo: fullSongData.lockScreenParameter)
-//
                         // キューに保存する
-                        self.fullSongsQueue[index + 1] = fullSongData
+                        self.fullSongsQueue[index] = fullSongData
+                        
+                        print(self.fullSongsQueue.map { $0.value.songName })
                     }
                 } catch {
                     print("Error: updateQueue,", error)
@@ -132,5 +190,23 @@ class PlayQueue {
             
         }
         
+    }
+    
+    /// シャッフルする
+    func shuffleQueue() {
+        let random = (0..<fullSongsQueue.count).shuffled()
+        let tmp = fullSongsQueue
+        
+        // シャッフル
+        for i in 0..<fullSongsQueue.count {
+            fullSongsQueue[i] = tmp[random[i]]
+        }
+    }
+    
+    /// シャッフルが必要ならシャッフル
+    private func shuffleIfneeded() {
+        if self.isShuffled {
+            self.songsQueue = self.songsQueue.shuffled()
+        }
     }
 }

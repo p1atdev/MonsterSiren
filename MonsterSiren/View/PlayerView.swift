@@ -58,12 +58,12 @@ struct PlayerView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         
-                        Text(playerViewModel.currentSong?.name ?? "Song")
+                        Text(playerViewModel.currentSong?.name ?? "No data")
                             .font(.system(size: 28))
                             .foregroundColor(.white)
                         
                         // アーティスト
-                        Text(playerViewModel.currentSong?.artists.joined(separator: ", ") ?? "Artists")
+                        Text(playerViewModel.currentSong?.artists.joined(separator: ", ") ?? "No data")
                             .font(.system(size: 20))
                             .opacity(0.7)
                             .foregroundColor(.white)
@@ -137,6 +137,7 @@ struct PlayerView: View {
                     // シャッフルかどうか
                     Button(action: {
                         isShuffled.toggle()
+                        playerViewModel.updatePlayType()    // キューの再生成
                     }, label: {
                         Image(systemName: "shuffle")
                             .foregroundColor(isShuffled ? .accentColor : .white)
@@ -144,32 +145,18 @@ struct PlayerView: View {
                     
                      Spacer()
                     
-                    // ループのタイプ
+                    // ループのタイプ TODO: 再生タイプの変更後、キューの再生成を行うように？
                     Button(action: {
-                        switch playType {
-                        case "oneAlbum":
-                            playType = "oneSong"
-                        case "oneSong":
-                            playType = "allSongs"
-                        case "allSongs":
-                            playType = "normal"
-                            isLoop = false
-                        case "normal":
-                            playType = "oneAlbum"
-                            isLoop = true
-                        default:
-                            playType = "oneAlbum"
-                            isLoop = true
-                        }
+                        playerViewModel.updatePlayType(type: playType)
                     }, label: {
                         Image(systemName:
                                 { switch playType {
                                 case "oneSong":
-                                    return isLoop ? "repeat.1" : "repeat"
+                                    return "repeat.1"
                                 case "oneAlbum":
                                     return "repeat"
                                 case "allSongs":
-                                    return isLoop ? "infinity" : "repeat"
+                                    return "infinity"
                                 default:
                                     return "repeat"
                                 }}()

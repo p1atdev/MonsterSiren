@@ -190,6 +190,11 @@ struct SongDetail: Codable, Identifiable {
              mvCoverUrl,
              artists
     }
+    
+    /// Songに変換したやつ
+    func convertToSong() -> Song {
+        return Song(id: id, name: name, artistes: artists)
+    }
 }
 
 struct AllSongs: Codable {
