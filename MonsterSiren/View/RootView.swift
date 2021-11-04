@@ -35,12 +35,19 @@ struct RootView: View {
                             .frame(maxWidth: min(window.width / 4.5, 400))
                             .padding(.top, 32)
                         
+                        // 画面細長い時は再生操作画面のみ
+                    } else if geometry.size.width < 420  {
+                        
+                        TabBarView(playerViewModel: playerViewModel)
+                            .padding(.horizontal, 32)
                     }
                     
-                    switch currentView {
-                    default:
-                        AlbumsView(loaded: $loaded, playerViewModel: playerViewModel)
-                            .frame(maxWidth: .infinity)
+                    if geometry.size.width > 420  {
+                        switch currentView {
+                        default:
+                            AlbumsView(loaded: $loaded, playerViewModel: playerViewModel)
+                                .frame(maxWidth: .infinity)
+                        }
                     }
                 }
                 
