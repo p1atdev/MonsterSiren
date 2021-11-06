@@ -19,18 +19,18 @@ struct AlbumsView: View {
     @State var albumToPresent: Album?
     
     /// プレーヤーのやつ
-    @StateObject var playerViewModel: PlayerViewModel
+    @EnvironmentObject var playerViewModel: PlayerViewModel
     
     /// ウィンドウのサイズ
     var window = UIScreen.main.bounds
     
     /// アルバムの列の数
-    let columns: [GridItem] = [GridItem(.adaptive(minimum: 200, maximum: 300))]
+    let columns: [GridItem] = [GridItem(.adaptive(minimum: 170, maximum: 300))]
     
     var body: some View {
         ZStack {
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 30) {
+                LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(albumsModel.albums ?? [], id: \.id) { album in
                         Button(action: {
                             withAnimation {
@@ -42,8 +42,9 @@ struct AlbumsView: View {
                         })
                     }
                 }
-                .padding()
-                .padding(.top, 30)
+                .padding(.horizontal, 16)
+                .padding(.top, safeAreaIntents.top)
+                .padding(.bottom, safeAreaIntents.bottom)
             }
             .opacity(albumToPresent == nil ? 1.0 : 0.0)
             .onAppear {
@@ -60,8 +61,7 @@ struct AlbumsView: View {
             
             if albumToPresent != nil {
                 AlbumDetailView(album: $albumToPresent,
-                                loaded: $loaded,
-                                playerViewModel: playerViewModel)
+                                loaded: $loaded)
                     .transition(.move(edge: .trailing))
             }
         }
