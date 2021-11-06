@@ -18,7 +18,7 @@ struct PlayerView: View {
     @AppStorage("playType") private var playType: String = "oneAlbum"
     
     /// プレーヤー
-    @StateObject var playerViewModel: PlayerViewModel
+    @EnvironmentObject var playerViewModel: PlayerViewModel
     
     /// 曲名のスクロール
     @State var scrollText: Bool = false

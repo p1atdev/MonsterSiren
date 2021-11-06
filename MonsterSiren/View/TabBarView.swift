@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TabBarView: View {
     
-    @StateObject var playerViewModel: PlayerViewModel
+    @EnvironmentObject var playerViewModel: PlayerViewModel
     
     /// ウィンドウのサイズ
     var window = UIScreen.main.bounds
@@ -28,7 +28,7 @@ struct TabBarView: View {
             Spacer()
             
             // プレイヤー
-            PlayerView(playerViewModel: playerViewModel)
+            PlayerView()
         }
     }
 }

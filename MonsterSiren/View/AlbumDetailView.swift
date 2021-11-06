@@ -59,7 +59,16 @@ struct AlbumDetailView: View {
                                 }
                             }
                             .frame(minHeight: window.height / 4)
-                            .clipped()
+                            .mask(
+                                LinearGradient(
+                                    gradient: Gradient(
+                                        colors: [Color](repeating: Color.black,
+                                                        count: 7)
+                                        + [Color.black.opacity(0)]
+                                    ),
+                                    startPoint: .top,
+                                    endPoint: .bottom)
+                            )
                             
                             // アルバムのジャケ画像とアルバム名
                             if let album = album {

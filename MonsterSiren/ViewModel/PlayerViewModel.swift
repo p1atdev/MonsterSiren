@@ -26,7 +26,7 @@ class PlayerViewModel: ObservableObject {
     @Published var currentAlbum: AlbumDetail?
     
     /// 曲の総時間
-    @Published var duration: Double = 0.0
+    @Published var duration: Double = 1.0
     
     /// 再生の進捗(秒)
     @Published var elapsedTime: Double = 0.0
@@ -37,7 +37,6 @@ class PlayerViewModel: ObservableObject {
     var playQueue = PlayQueue()
     
     init() {
-//        DispatchQueue.global().async {
         _ = SAPlayer.Updates.Duration.subscribe { duration in
             print("曲の長さ: ", duration, "秒")
             self.duration = duration
@@ -48,11 +47,6 @@ class PlayerViewModel: ObservableObject {
 //            print("ElapsedTime: ", elapsedTime)
             self.elapsedTime = elapsedTime
         }
-        
-//        _ = SAPlayer.Updates.AudioQueue.subscribe { url in
-//            print("AudioQueue: ", url)
-//
-//        }
         
         _ = SAPlayer.Updates.PlayingStatus.subscribe { status in
             print(status)
@@ -178,12 +172,45 @@ class PlayerViewModel: ObservableObject {
     
     /// 次の曲にする
     func skipForward() {
-        SAPlayer.shared.skipForward()
+        // 停止し、
+        SAPlayer.shared.pause()
+        // 現在の曲を次の曲にすり替える
+        
+        // まずは現在の曲を取得しKeyを取得
+        if let currentIndexNum = playQueue.fullSongsQueue.filter({
+            $0.value.songId == currentSong?.id
+        }).first?.key {
+            let index = (currentIndexNum + 1) % playQueue.fullSongsQueue.count
+            //currentを次の曲にする
+            self.currentSong = playQueue.fullSongsQueue[index]?.songDetail
+            self.currentAlbum = playQueue.fullSongsQueue[index]?.albumDetail
+
+            // 再生する
+            self.play()
+        }
+        
     }
     
     /// 前の曲にする
     func skipBackwards() {
-        SAPlayer.shared.skipBackwards()
+        
+        // 停止し、
+        SAPlayer.shared.pause()
+        // 現在の曲を前の曲にすり替える
+        
+        // まずは現在の曲を取得しKeyを取得
+        if let currentIndexNum = playQueue.fullSongsQueue.filter({
+            $0.value.songId == currentSong?.id
+        }).first?.key {
+            let index = (currentIndexNum - 1) % playQueue.fullSongsQueue.count
+            //currentを前の曲にする
+            self.currentSong = playQueue.fullSongsQueue[index]?.songDetail
+            self.currentAlbum = playQueue.fullSongsQueue[index]?.albumDetail
+
+            // 再生する
+            self.play()
+        }
+        
     }
     
     /// 再生位置を変更する

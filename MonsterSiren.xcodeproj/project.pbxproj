@@ -34,6 +34,7 @@
 		3A8CE3622732AFE200DBDEDC /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8CE3612732AFE200DBDEDC /* ProgressView.swift */; };
 		3A8CE3642732BD8000DBDEDC /* URLDynamicImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8CE3632732BD8000DBDEDC /* URLDynamicImageView.swift */; };
 		3ACD4DFA27363582000787C6 /* SongsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD4DF927363582000787C6 /* SongsList.swift */; };
+		3ACD4DFC27365779000787C6 /* MiniPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD4DFB27365779000787C6 /* MiniPlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		3A8CE3612732AFE200DBDEDC /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		3A8CE3632732BD8000DBDEDC /* URLDynamicImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDynamicImageView.swift; sourceTree = "<group>"; };
 		3ACD4DF927363582000787C6 /* SongsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsList.swift; sourceTree = "<group>"; };
+		3ACD4DFB27365779000787C6 /* MiniPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +181,7 @@
 				3A8CE3632732BD8000DBDEDC /* URLDynamicImageView.swift */,
 				3A80393327312A1E0044803F /* TabBarView.swift */,
 				3A80393B2731382F0044803F /* PlayerView.swift */,
+				3ACD4DFB27365779000787C6 /* MiniPlayer.swift */,
 				3A80393727312AC20044803F /* RootView.swift */,
 				3A80393927312B9A0044803F /* LoadingBannerView.swift */,
 				3A8CE3612732AFE200DBDEDC /* ProgressView.swift */,
@@ -369,6 +372,7 @@
 				3A47A3702731944100A509B6 /* Extensions.swift in Sources */,
 				3ACD4DFA27363582000787C6 /* SongsList.swift in Sources */,
 				3A80392927310E9B0044803F /* AlbumsViewModel.swift in Sources */,
+				3ACD4DFC27365779000787C6 /* MiniPlayer.swift in Sources */,
 				3A80393627312A2B0044803F /* PlayerViewModel.swift in Sources */,
 				3A8CE3622732AFE200DBDEDC /* ProgressView.swift in Sources */,
 			);

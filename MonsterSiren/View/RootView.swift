@@ -31,25 +31,21 @@ struct RootView: View {
                     
                     if geometry.size.width > 750 {
                         
-                        TabBarView(playerViewModel: playerViewModel)
+                        TabBarView()
                             .frame(maxWidth: min(window.width / 4.5, 400))
                             .padding(.top, 32)
-                        
-                        // 画面細長い時は再生操作画面のみ
                     }
-//                    } else if geometry.size.width < 420  {
-//
-//                        TabBarView(playerViewModel: playerViewModel)
-//                            .padding(.horizontal, 32)
-//                    }
                     
-//                    if geometry.size.width > 420  {
-                        switch currentView {
-                        default:
-                            AlbumsView(loaded: $loaded)
-                                .frame(maxWidth: .infinity)
-                        }
-//                    }
+                    switch currentView {
+                    default:
+                        AlbumsView(loaded: $loaded)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                
+                if geometry.size.width <= 750 {
+                    // ミニプレーヤーを出して、もしタップされたらPlayerViewを出す
+                    MiniPlayer()
                 }
                 
                 LoadingBannerView(loaded: $loaded)
