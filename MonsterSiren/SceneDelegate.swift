@@ -7,19 +7,27 @@
 
 import UIKit
 import SwiftUI
+import AVFoundation
+import AVKit
+import MediaPlayer
+import SwiftAudioPlayer
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    @EnvironmentObject var playerViewModel: PlayerViewModel
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
+        // ContentsViewを定義
+        let contentsView = ContentsView().environmentObject(PlayerViewModel())
+        
         // SwiftUIを指定する
-        window?.rootViewController = UIHostingController(rootView: ContentsView())
+        window?.rootViewController = UIHostingController(rootView: contentsView)
 
         // ステータスバーを消す
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -36,6 +44,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.forEach { windowScene in
             windowScene.sizeRestrictions?.minimumSize = CGSize(width: 1100, height: 700)
         }
+        
+        // イヤホンとかのボタンイベント(リモートコマンドイベント)に対応する
+        addRemoteCommandEvent()
         
         guard let _ = (scene as? UIWindowScene) else { return }
     }
@@ -68,6 +79,69 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    // MARK: Remote Command Event
+    // URL: https://nackpan.net/blog/2015/09/25/ios-swift-remote-control-event/
+    func addRemoteCommandEvent() {
+        let commandCenter = MPRemoteCommandCenter.shared()
+        commandCenter.togglePlayPauseCommand.addTarget(handler: { [unowned self] commandEvent -> MPRemoteCommandHandlerStatus in
+            self.remoteTogglePlayPause(commandEvent)
+            return MPRemoteCommandHandlerStatus.success
+        })
+        commandCenter.playCommand.addTarget(handler: { [unowned self] commandEvent -> MPRemoteCommandHandlerStatus in
+            self.remotePlay(commandEvent)
+            return MPRemoteCommandHandlerStatus.success
+        })
+        commandCenter.pauseCommand.addTarget(handler: { [unowned self] commandEvent -> MPRemoteCommandHandlerStatus in
+            self.remotePause(commandEvent)
+            return MPRemoteCommandHandlerStatus.success
+        })
+        commandCenter.nextTrackCommand.addTarget(handler: { [unowned self] commandEvent -> MPRemoteCommandHandlerStatus in
+            self.remoteNextTrack(commandEvent)
+            return MPRemoteCommandHandlerStatus.success
+        })
+        commandCenter.previousTrackCommand.addTarget(handler: { [unowned self] commandEvent -> MPRemoteCommandHandlerStatus in
+            self.remotePrevTrack(commandEvent)
+            return MPRemoteCommandHandlerStatus.success
+        })
+        
+        
+    }
+    
+    func remoteTogglePlayPause(_ event: MPRemoteCommandEvent) {
+        // イヤホンのセンターボタンを押した時の処理
+        print("イヤホンのセンターボタンを押した時の処理")
+        // 再生をtoggleする
+        playerViewModel.togglePlayStop()
+    }
+    
+    func remotePlay(_ event: MPRemoteCommandEvent) {
+        // プレイボタンが押された時の処理
+        print("プレイボタンが押された時の処理")
+        SAPlayer.shared.play()
+    }
+    
+    func remotePause(_ event: MPRemoteCommandEvent) {
+        // ポーズボタンが押された時の処理
+        print("ポーズが押された時の処理")
+        SAPlayer.shared.pause()
+    }
+    
+    // TODO: ここの曲スキップがうまくいかない
+    
+    func remoteNextTrack(_ event: MPRemoteCommandEvent) {
+        // 「次へ」ボタンが押された時の処理
+        print("次の曲へ")
+        
+        playerViewModel.skipForward()
+    }
+    
+    func remotePrevTrack(_ event: MPRemoteCommandEvent) {
+        // 「前へ」ボタンが押された時の処理
+        print("前の曲へ")
+        
+        playerViewModel.skipBackwards()
+        
+    }
 
 }
 
