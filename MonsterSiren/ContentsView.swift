@@ -12,6 +12,6 @@ struct ContentsView: View {
     var body: some View {
         RootView()
             .frame(minWidth: 360 , minHeight: 570)
-            .environmentObject(PlayerViewModel())
+//            .environmentObject(PlayerViewModel())
     }
 }
