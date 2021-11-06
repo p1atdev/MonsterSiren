@@ -15,7 +15,7 @@ struct RootView: View {
     @State var currentView: String = "albums"
     
     /// 再生に関するモデル
-    @ObservedObject var playerViewModel = PlayerViewModel()
+    @EnvironmentObject var playerViewModel: PlayerViewModel
     
     /// ウィンドウのサイズ
     var window = UIScreen.main.bounds
@@ -29,26 +29,27 @@ struct RootView: View {
                 
                 HStack(spacing: 0) {
                     
-                    if geometry.size.width > 1000 {
+                    if geometry.size.width > 750 {
                         
                         TabBarView(playerViewModel: playerViewModel)
                             .frame(maxWidth: min(window.width / 4.5, 400))
                             .padding(.top, 32)
                         
                         // 画面細長い時は再生操作画面のみ
-                    } else if geometry.size.width < 420  {
-                        
-                        TabBarView(playerViewModel: playerViewModel)
-                            .padding(.horizontal, 32)
                     }
+//                    } else if geometry.size.width < 420  {
+//
+//                        TabBarView(playerViewModel: playerViewModel)
+//                            .padding(.horizontal, 32)
+//                    }
                     
-                    if geometry.size.width > 420  {
+//                    if geometry.size.width > 420  {
                         switch currentView {
                         default:
-                            AlbumsView(loaded: $loaded, playerViewModel: playerViewModel)
+                            AlbumsView(loaded: $loaded)
                                 .frame(maxWidth: .infinity)
                         }
-                    }
+//                    }
                 }
                 
                 LoadingBannerView(loaded: $loaded)

@@ -33,6 +33,7 @@
 		3A80393E273143EB0044803F /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80393D273143EB0044803F /* AlbumDetailView.swift */; };
 		3A8CE3622732AFE200DBDEDC /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8CE3612732AFE200DBDEDC /* ProgressView.swift */; };
 		3A8CE3642732BD8000DBDEDC /* URLDynamicImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8CE3632732BD8000DBDEDC /* URLDynamicImageView.swift */; };
+		3ACD4DFA27363582000787C6 /* SongsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD4DF927363582000787C6 /* SongsList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		3A80393D273143EB0044803F /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
 		3A8CE3612732AFE200DBDEDC /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		3A8CE3632732BD8000DBDEDC /* URLDynamicImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDynamicImageView.swift; sourceTree = "<group>"; };
+		3ACD4DF927363582000787C6 /* SongsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 			children = (
 				3A80391B273106240044803F /* AlbumsView.swift */,
 				3A80393D273143EB0044803F /* AlbumDetailView.swift */,
+				3ACD4DF927363582000787C6 /* SongsList.swift */,
 				3A80393127311AE30044803F /* URLImageView.swift */,
 				3A8CE3632732BD8000DBDEDC /* URLDynamicImageView.swift */,
 				3A80393327312A1E0044803F /* TabBarView.swift */,
@@ -364,6 +367,7 @@
 				3A80393827312AC20044803F /* RootView.swift in Sources */,
 				3A8038EC2731048F0044803F /* SceneDelegate.swift in Sources */,
 				3A47A3702731944100A509B6 /* Extensions.swift in Sources */,
+				3ACD4DFA27363582000787C6 /* SongsList.swift in Sources */,
 				3A80392927310E9B0044803F /* AlbumsViewModel.swift in Sources */,
 				3A80393627312A2B0044803F /* PlayerViewModel.swift in Sources */,
 				3A8CE3622732AFE200DBDEDC /* ProgressView.swift in Sources */,
@@ -537,7 +541,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MonsterSiren/MonsterSiren.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 8Q2A6VDAQN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MonsterSiren/Info.plist;
@@ -572,7 +576,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MonsterSiren/MonsterSiren.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 8Q2A6VDAQN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MonsterSiren/Info.plist;

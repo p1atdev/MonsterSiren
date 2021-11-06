@@ -60,3 +60,24 @@ extension NSURLRequest {
         return true
     }
 }
+
+extension View {
+    
+    /// 現在のセーフエリアの幅を返すよ
+    var safeAreaIntents: UIEdgeInsets {
+        let keyWindow = UIApplication.shared.connectedScenes
+        
+            .filter({$0.activationState == .foregroundActive})
+        
+            .map({$0 as? UIWindowScene})
+        
+            .compactMap({$0})
+        
+            .first?.windows
+        
+            .filter({$0.isKeyWindow}).first
+        
+        return (keyWindow?.safeAreaInsets) ?? .init(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+}
