@@ -52,8 +52,6 @@ struct LyricsView: View {
                                         .opacity(lyric.time == highlightedLyric?.time ? 1.0 : 0.5)
                                         .id(lyric.time)
                                     
-                                    // TODO: 画面狭いときのよくわからん挙動(左右にぶれる)を修正したい
-                                    
                                 }
                                 .onChange(of: playerViewModel.elapsedTime) { time in
                                     // TODO: もしどっかにスクロールしていた場合を除きたい(Spotifyみたいに )
@@ -75,7 +73,6 @@ struct LyricsView: View {
                             }
                         }
                         .padding(.vertical, window.width > 750 ? 128 : 80)
-                        .padding(.horizontal, window.width > 750 ? 64 : 20)
                     }
                     
                     // TODO: トラックパッドのジェスチャーの判定がようわからん
@@ -93,6 +90,7 @@ struct LyricsView: View {
                     
 
                 }
+                .padding(.horizontal, window.width > 750 ? 64 : 20)
                 // 曲が変わったときに歌詞を更新する
                 .onChange(of: playerViewModel.currentSong?.id) { song in
                     // 歌詞を消す
