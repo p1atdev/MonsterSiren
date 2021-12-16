@@ -46,7 +46,7 @@ struct AlbumsView: View {
                 .padding(.top, safeAreaIntents.top)
                 .padding(.bottom, safeAreaIntents.bottom)
             }
-            .opacity(albumToPresent == nil ? 1.0 : 0.0)
+            .opacity(albumToPresent != nil || playerViewModel.shouldShowLyrics ? 0.0 : 1.0)
             .onAppear {
                 if albumsModel.albums == nil {
                     DispatchQueue.global().async {
@@ -63,6 +63,14 @@ struct AlbumsView: View {
                 AlbumDetailView(album: $albumToPresent,
                                 loaded: $loaded)
                     .transition(.move(edge: .trailing))
+                    .zIndex(30)
+            }
+            
+            if playerViewModel.shouldShowLyrics {
+                // 歌詞
+                LyricsView(loaded: $loaded)
+                    .transition(.move(edge: .trailing))
+                    .zIndex(60)
             }
         }
     }

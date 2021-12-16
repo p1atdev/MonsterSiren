@@ -37,6 +37,7 @@ struct RootView: View {
                     }
                     
                     switch currentView {
+                        
                     default:
                         AlbumsView(loaded: $loaded)
                             .frame(maxWidth: .infinity)
