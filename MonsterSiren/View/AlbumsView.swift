@@ -66,9 +66,9 @@ struct AlbumsView: View {
                     .zIndex(30)
             }
             
-            if playerViewModel.shouldShowLyrics {
+            if playerViewModel.shouldShowLyrics && window.width > 750 {
                 // 歌詞
-                LyricsView(loaded: $loaded)
+                LyricsView()
                     .transition(.move(edge: .trailing))
                     .zIndex(60)
             }
