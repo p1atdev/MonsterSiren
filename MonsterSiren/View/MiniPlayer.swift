@@ -53,14 +53,12 @@ struct MiniPlayer: View {
                     VStack(alignment: .leading) {
                         Text(playerViewModel.currentSong?.name ?? "No data")
                             .font(.title2)
-                            .fixedSize()
                         
                         
                         Text(playerViewModel.currentSong?.artists.joined(separator: ", ")
                              ?? "No data")
                             .font(.caption)
                             .opacity(0.8)
-                            .fixedSize()
                         
                     }
                     
@@ -106,6 +104,7 @@ struct MiniPlayer: View {
                 playerShouldShow.toggle()
             }
         }
+        
         .sheet(isPresented: $playerShouldShow) {
             VStack {
                 Spacer()
@@ -113,8 +112,9 @@ struct MiniPlayer: View {
                     .padding(.horizontal, 32)
             }
             .background(
-            Image("background")
-                .resizable()
+                Image("background")
+                    .resizable()
+                    .ignoresSafeArea()
             )
         }
         

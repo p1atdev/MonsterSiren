@@ -65,7 +65,7 @@ struct PlayerView: View {
                                         y: 2)
                             })
                                 .buttonStyle(PlainButtonStyle())
-                                .frame(width: 32, height: 32)
+                                .frame(width: 40, height: 40)
                                 .padding(4)
                         }
                         
@@ -114,7 +114,7 @@ struct PlayerView: View {
                 // 曲のスライダー
                 HStack {
                     Image(systemName: "music.note")
-                        .frame(width: 32)
+                        .frame(width: 36)
                     
                     Slider(value: Binding(
                         get: {
@@ -218,7 +218,7 @@ struct PlayerView: View {
                             return "speaker.wave.3.fill"
                         }
                     }())
-                        .frame(width: 32)
+                        .frame(width: 36)
                     
                     Slider(value: Binding(
                         get: {
@@ -232,6 +232,14 @@ struct PlayerView: View {
                 .padding(.top, 8)
                 .padding(.bottom, 20)
             }
+        }
+        .sheet(isPresented: Binding(get: {
+            playerViewModel.shouldShowLyrics && window.width <= 750
+        }, set: {
+            playerViewModel.shouldShowLyrics = $0
+        })) {
+            // 歌詞の画面表示
+            LyricsView()
         }
     }
 }

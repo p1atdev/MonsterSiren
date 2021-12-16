@@ -15,14 +15,14 @@ struct LyricsView: View {
     /// 歌詞データ
     @StateObject var lyricsViewModel = LyricsViewModel()
     
-    /// ロード完了したか
-    @Binding var loaded: Bool
-    
     /// ハイライトする歌詞
     @State private var highlightedLyric: LyricsItem?
     
     /// 歌詞のとこにスクロールするかどうか
     @State private var shouldScrollToLyric: Bool = true
+    
+    /// ウィンドウのサイズ
+    var window = UIScreen.main.bounds
     
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -36,7 +36,7 @@ struct LyricsView: View {
             
             ScrollViewReader { scrollProxy in
                 VStack {
-                    ScrollView(showsIndicators: false) {
+                    ScrollView(.vertical, showsIndicators: false) {
                         VStack(alignment: .leading, spacing: 64) {
                             // トップに行くための無のview
                             EmptyView()
@@ -47,9 +47,12 @@ struct LyricsView: View {
                                     // 再生されてる箇所に合わせてスクロールを移動&文字のopcityを変更
                                     Text(lyric.text)
                                         .font(.largeTitle.bold())
+                                        .frame(maxWidth: .infinity,
+                                               alignment: .leading)
                                         .opacity(lyric.time == highlightedLyric?.time ? 1.0 : 0.5)
                                         .id(lyric.time)
                                     
+                                    // TODO: 画面狭いときのよくわからん挙動(左右にぶれる)を修正したい
                                     
                                 }
                                 .onChange(of: playerViewModel.elapsedTime) { time in
@@ -65,15 +68,14 @@ struct LyricsView: View {
                                         
 //                                        if shouldScrollToLyric {
                                         scrollProxy.scrollTo(lyric.time,
-                                                             anchor: UnitPoint(x: 0.5,
-                                                                               y: 0.5))
+                                                             anchor: .center)
 //                                        }
                                     }
                                 }
                             }
                         }
-                        .padding(.vertical, 128)
-                        .padding(.horizontal, 64)
+                        .padding(.vertical, window.width > 750 ? 128 : 80)
+                        .padding(.horizontal, window.width > 750 ? 64 : 20)
                     }
                     
                     // TODO: トラックパッドのジェスチャーの判定がようわからん
@@ -136,7 +138,7 @@ struct LyricsView: View {
         .background(
             Image("background")
                 .resizable()
-                .clipped()
+                .ignoresSafeArea()
                 .opacity(0.9)
         )
         .onAppear(perform: {
@@ -146,12 +148,6 @@ struct LyricsView: View {
     
     /// 現在の曲の歌詞を取得する
     private func getLyrics() {
-        withAnimation {
-            loaded = false
-        }
         lyricsViewModel.fetchLyricsFrom(playerViewModel.currentSong?.lyricUrl)
-        withAnimation {
-            loaded = true
-        }
     }
 }
