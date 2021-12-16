@@ -118,3 +118,17 @@ extension UIImage {
                        alpha: CGFloat(bitmap[3]) / 255)
     }
 }
+
+extension CharacterSet {
+    public static var quotes = CharacterSet(charactersIn: "\"'")
+}
+
+extension String {
+    public func emptyToNil() -> String? {
+        return self == "" ? nil : self
+    }
+    
+    public func blankToNil() -> String? {
+        return self.trimmingCharacters(in: .whitespacesAndNewlines) == "" ? nil : self
+    }
+}

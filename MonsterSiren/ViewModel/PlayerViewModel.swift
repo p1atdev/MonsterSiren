@@ -18,6 +18,8 @@ class PlayerViewModel: ObservableObject {
     /// 再生する曲のタイプ
     /// oneSong | oneAlbum | allSongs
     @AppStorage("playType") private var playType: String = "oneAlbum"
+    /// 音量
+    @AppStorage("musicVolume") private var volume: Double = 1.0
     
     /// 現在再生されている曲
     @Published var currentSong: SongDetail?
@@ -33,6 +35,9 @@ class PlayerViewModel: ObservableObject {
     
     /// 現在再生しているか
     @Published var isPlaying: Bool = false
+    
+    /// 歌詞を表示するか
+    @Published var shouldShowLyrics: Bool = false
     
     var playQueue = PlayQueue()
     
@@ -117,6 +122,7 @@ class PlayerViewModel: ObservableObject {
                     // 再生する
                     SAPlayer.shared.startRemoteAudio(withRemoteUrl: url)
                     SAPlayer.shared.play()
+                    SAPlayer.shared.volume = Float(self.volume)
                     
                     withAnimation {
                         self.elapsedTime = 0
@@ -152,6 +158,7 @@ class PlayerViewModel: ObservableObject {
                 // 再生する
                 SAPlayer.shared.startRemoteAudio(withRemoteUrl: url)
                 SAPlayer.shared.play()
+                SAPlayer.shared.volume = Float(self.volume)
                 
                 withAnimation {
                     self.elapsedTime = 0
@@ -255,6 +262,12 @@ class PlayerViewModel: ObservableObject {
         case "normal": return .normal
         default: return .normal
         }
+    }
+    
+    /// 音量を変更する
+    func changeVolume(_ volume: Double) {
+        SAPlayer.shared.volume = Float(volume)
+        self.volume = volume
     }
 }
 

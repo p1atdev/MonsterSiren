@@ -16,6 +16,8 @@ struct PlayerView: View {
     /// 再生する曲のタイプ
     /// oneSong | oneAlbum | allSongs | normal
     @AppStorage("playType") private var playType: String = "oneAlbum"
+    /// 音量
+    @AppStorage("musicVolume") private var volume: Double = 1.0
     
     /// プレーヤー
     @EnvironmentObject var playerViewModel: PlayerViewModel
@@ -33,14 +35,43 @@ struct PlayerView: View {
                 Spacer()
                 
                 if let album = playerViewModel.currentAlbum {
-                    URLDynamicImageView(viewModel: .init(url: album.coverUrl))
-                        .aspectRatio(1, contentMode: .fit)
-                        .frame(minWidth: proxy.size.width - 16,
-                               minHeight: proxy.size.width - 16)
-                        .shadow(color: .black, radius: 12,
-                                x: -4, y: 8)
-                        .padding(.horizontal)
-                        .offset(x: -4)
+                    ZStack(alignment: .topLeading) {
+                        URLDynamicImageView(viewModel: .init(url: album.coverUrl))
+                            .aspectRatio(1, contentMode: .fit)
+                            .frame(minWidth: proxy.size.width - 16,
+                                   minHeight: proxy.size.width - 16)
+                            .shadow(color: .black, radius: 12,
+                                    x: -4, y: 8)
+                        
+                        // もし歌詞のURLがあれば表示する
+                        if playerViewModel.currentSong?.lyricUrl != nil {
+                            Button(action: {
+                                // 歌詞のボタンが押された
+                                // 歌詞の表示処理
+                                withAnimation {
+                                    playerViewModel.shouldShowLyrics.toggle()
+                                }
+                            }, label: {
+                                ZStack {
+                                    Rectangle()
+                                        .background(Color("AccentColor"))
+                                    Image(systemName: "text.quote")
+                                        .blendMode(.destinationOut)
+                                }
+                                .compositingGroup()
+                                .shadow(color: .black.opacity(0.3),
+                                        radius: 4,
+                                        x: -1,
+                                        y: 2)
+                            })
+                                .buttonStyle(PlainButtonStyle())
+                                .frame(width: 32, height: 32)
+                                .padding(4)
+                        }
+                        
+                    }
+                    .padding(.horizontal)
+                    .offset(x: -4)
                     
                 } else {
                     Image("disk")
@@ -78,21 +109,26 @@ struct PlayerView: View {
                         .frame(width: 30, height: 30)
                 }
                 .padding(.horizontal, 16)
-                //            Spacer()
                 
-                // スライダー
-                Slider(value: Binding(
-                    get: {
-                        playerViewModel.elapsedTime
-                    },
-                    set: { newTime in
-                        playerViewModel.seekTo(seconds: newTime)
-                    }
-                ),
-                       in: 0...playerViewModel.duration)
-                    .padding(.horizontal, 16)
-                    .padding(.top, 8)
-                    .padding(.bottom, 12)
+                
+                // 曲のスライダー
+                HStack {
+                    Image(systemName: "music.note")
+                        .frame(width: 32)
+                    
+                    Slider(value: Binding(
+                        get: {
+                            playerViewModel.elapsedTime
+                        },
+                        set: { newTime in
+                            playerViewModel.seekTo(seconds: newTime)
+                        }
+                    ),
+                           in: 0...playerViewModel.duration)
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+                .padding(.bottom, 12)
                 
                 
                 // ボタン系
@@ -127,7 +163,6 @@ struct PlayerView: View {
                 }
                 .frame(height: 36)
                 .padding(.horizontal)
-//                .padding(.top, 8)
                 .padding(.bottom, 12)
                 .font(.system(size: 32))
                 .foregroundColor(.white)
@@ -166,8 +201,36 @@ struct PlayerView: View {
                 }
                 .frame(height: 32)
                 .padding(.horizontal)
-                .padding(.bottom, 32)
+                .padding(.bottom, 12)
                 .font(.system(size: 28))
+                
+                // 音量のスライダー
+                HStack {
+                    // スピーカーのアイコン
+                    Image(systemName: {
+                        if volume == 0.0 {
+                            return "speaker.fill"
+                        } else if volume <= 0.2 {
+                            return "speaker.wave.1.fill"
+                        } else if volume <= 0.6 {
+                            return "speaker.wave.2.fill"
+                        } else {
+                            return "speaker.wave.3.fill"
+                        }
+                    }())
+                        .frame(width: 32)
+                    
+                    Slider(value: Binding(
+                        get: {
+                            volume
+                        }, set: { value in
+                            playerViewModel.changeVolume(value)
+                        }),
+                           in: 0.0...1.0)
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+                .padding(.bottom, 20)
             }
         }
     }
