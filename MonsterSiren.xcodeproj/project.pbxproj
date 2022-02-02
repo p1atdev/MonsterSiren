@@ -41,6 +41,7 @@
 		3AB81E36276B6EB10016107B /* LyricsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB81E31276B6EB10016107B /* LyricsParser.swift */; };
 		3ACD4DFA27363582000787C6 /* SongsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD4DF927363582000787C6 /* SongsList.swift */; };
 		3ACD4DFC27365779000787C6 /* MiniPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD4DFB27365779000787C6 /* MiniPlayer.swift */; };
+		3AD22C0527AAFFDA0059761C /* ScrollSongText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD22C0427AAFFDA0059761C /* ScrollSongText.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		3AB81E33276B6EB10016107B /* LyricsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsItem.swift; sourceTree = "<group>"; };
 		3ACD4DF927363582000787C6 /* SongsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsList.swift; sourceTree = "<group>"; };
 		3ACD4DFB27365779000787C6 /* MiniPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayer.swift; sourceTree = "<group>"; };
+		3AD22C0427AAFFDA0059761C /* ScrollSongText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollSongText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +205,7 @@
 				3A8CE3632732BD8000DBDEDC /* URLDynamicImageView.swift */,
 				3A80393327312A1E0044803F /* TabBarView.swift */,
 				3A80393B2731382F0044803F /* PlayerView.swift */,
+				3AD22C0427AAFFDA0059761C /* ScrollSongText.swift */,
 				3ACD4DFB27365779000787C6 /* MiniPlayer.swift */,
 				3A80393727312AC20044803F /* RootView.swift */,
 				3A80393927312B9A0044803F /* LoadingBannerView.swift */,
@@ -402,6 +405,7 @@
 				3A80391E273106430044803F /* ContentsView.swift in Sources */,
 				3A80393027311ACD0044803F /* URLImageViewModel.swift in Sources */,
 				3A8038EA2731048F0044803F /* AppDelegate.swift in Sources */,
+				3AD22C0527AAFFDA0059761C /* ScrollSongText.swift in Sources */,
 				3AB81E34276B6EB10016107B /* LyricsHeader.swift in Sources */,
 				3A80393E273143EB0044803F /* AlbumDetailView.swift in Sources */,
 				3A80393827312AC20044803F /* RootView.swift in Sources */,
@@ -587,7 +591,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 8Q2A6VDAQN;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -631,7 +635,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 8Q2A6VDAQN;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

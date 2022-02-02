@@ -56,8 +56,15 @@ struct RootView: View {
     }
 }
 
-//struct RootView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RootView()
-//    }
-//}
+struct RootView_Previews: PreviewProvider {
+    static var previews: some View {
+        if #available(iOS 15.0, *) {
+            RootView()
+                .previewDevice("iPad Pro (12.9-inch) (5th generation)")
+                .environmentObject(PlayerViewModel())
+                .previewInterfaceOrientation(.landscapeRight)
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+}

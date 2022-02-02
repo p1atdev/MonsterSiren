@@ -27,3 +27,10 @@ struct ContentsView: View {
             }
     }
 }
+
+struct _ContentsView: PreviewProvider {
+    static var previews: some View {
+        ContentsView()
+            .environmentObject(PlayerViewModel())
+    }
+}
