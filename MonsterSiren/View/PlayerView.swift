@@ -89,9 +89,8 @@ struct PlayerView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         
-                        Text(playerViewModel.currentSong?.name ?? "No data")
-                            .font(.system(size: 28))
-                            .foregroundColor(.white)
+                        //　曲名
+                        ScrollSongText(songName: Binding.constant(playerViewModel.currentSong?.name ?? "No data"))
                         
                         // アーティスト
                         Text(playerViewModel.currentSong?.artists.joined(separator: ", ") ?? "No data")
