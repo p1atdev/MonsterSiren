@@ -16,4 +16,4 @@
 - [Swift Audio Player](https://github.com/tanhakabir/SwiftAudioPlayer)
 
 # License
-
+MIT License
