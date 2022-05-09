@@ -103,8 +103,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.remotePrevTrack(commandEvent)
             return MPRemoteCommandHandlerStatus.success
         })
-        
-        
     }
     
     func remoteTogglePlayPause(_ event: MPRemoteCommandEvent) {
@@ -140,7 +138,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         print("前の曲へ")
         
         playerViewModel.skipBackwards()
-        
     }
 
 }

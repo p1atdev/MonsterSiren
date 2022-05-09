@@ -50,16 +50,20 @@ struct MiniPlayer: View {
                             .padding(.bottom, 2)
                     }
                     
-                    VStack(alignment: .leading) {
-                        Text(playerViewModel.currentSong?.name ?? "No data")
-                            .font(.title2)
-                        
-                        
-                        Text(playerViewModel.currentSong?.artists.joined(separator: ", ")
-                             ?? "No data")
-                            .font(.caption)
-                            .opacity(0.8)
-                        
+                    GeometryReader { proxy in
+                        VStack(alignment: .leading) {
+//                            Text(playerViewModel.currentSong?.name ?? "No data")
+//                                .font(.title2)
+                            ScrollSongText(songName: Binding.constant(playerViewModel.currentSong?.name ?? "No data"),
+                                           fontSize: 24, wrapWidth: proxy.size.width)
+                            
+                            
+                            Text(playerViewModel.currentSong?.artists.joined(separator: ", ")
+                                 ?? "No data")
+                                .font(.caption)
+                                .opacity(0.8)
+                            
+                        }
                     }
                     
                     Spacer()

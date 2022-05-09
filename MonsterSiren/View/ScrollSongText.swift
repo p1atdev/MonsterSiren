@@ -12,6 +12,9 @@ import SwiftUI
 struct ScrollSongText: View {
     
     @Binding var songName: String
+    @State var fontSize: CGFloat
+    @State var wrapWidth: CGFloat
+    
     @State private var offset: CGFloat = 0
     @State private var shouldScrollText: Bool = false
     @State private var textWidth: CGFloat = 0
@@ -23,12 +26,10 @@ struct ScrollSongText: View {
             .repeatForever()
     }
     
-    let titleWidth: CGFloat = 240.0
-    
     func setScroll(_ text: String) {
-        textWidth = text.widthOfString(usingFont: UIFont.systemFont(ofSize: 28, weight: .regular))
+        textWidth = text.widthOfString(usingFont: UIFont.systemFont(ofSize: fontSize, weight: .regular))
         
-        shouldScrollText = textWidth > 250
+        shouldScrollText = textWidth > wrapWidth
         
         if shouldScrollText {
             withAnimation(Animation.linear(duration: 8).delay(2).repeatForever(autoreverses: true)) {
@@ -43,8 +44,7 @@ struct ScrollSongText: View {
         ScrollView(.horizontal, showsIndicators: false) {
             GeometryReader { textProxy in
                 Text(songName)
-                    .font(.system(size: 28))
-                    .foregroundColor(.white)
+                    .font(.system(size: fontSize))
                     .frame(width: textWidth)
                     .offset(x: shouldScrollText ? offset : 0, y: 0)
                     .onAppear {

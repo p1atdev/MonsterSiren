@@ -75,12 +75,17 @@ struct SongsList: View {
                                     
                                 }
                                 
-                                VStack(alignment: .leading) {
-                                    Text(song.name)
-                                        .font(.system(size: 20))
-                                    Text(song.artistes.joined(separator: ", "))
-                                        .font(.system(size: 16))
-                                        .opacity(0.8)
+                                GeometryReader { proxy in
+                                    VStack(alignment: .leading) {
+                                        
+                                        ScrollSongText(songName: Binding.constant(song.name),
+                                                       fontSize: 20,
+                                                       wrapWidth: proxy.size.width)
+                                        
+                                        Text(song.artistes.joined(separator: ", "))
+                                            .font(.system(size: 16))
+                                            .opacity(0.8)
+                                    }
                                 }
                                 
                                 Spacer()

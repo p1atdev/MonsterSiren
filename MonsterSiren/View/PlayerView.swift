@@ -85,12 +85,14 @@ struct PlayerView: View {
                         .offset(x: -4)
                 }
                 
-                
+                // 曲名とか
                 HStack {
                     VStack(alignment: .leading) {
                         
                         //　曲名
-                        ScrollSongText(songName: Binding.constant(playerViewModel.currentSong?.name ?? "No data"))
+                        ScrollSongText(songName: Binding.constant(playerViewModel.currentSong?.name ?? "No data"),
+                                       fontSize: 28,
+                                       wrapWidth: 250)
                         
                         // アーティスト
                         Text(playerViewModel.currentSong?.artists.joined(separator: ", ") ?? "No data")
@@ -231,6 +233,11 @@ struct PlayerView: View {
                 .padding(.top, 8)
                 .padding(.bottom, 20)
             }
+        }
+        .onAppear {
+            print("[*] currentAlbum:", playerViewModel.currentAlbum)
+            print("[*] currentSong:", playerViewModel.currentSong)
+            print("[*] playerViewModel:", playerViewModel)
         }
         .sheet(isPresented: Binding(get: {
             playerViewModel.shouldShowLyrics && window.width <= 750
