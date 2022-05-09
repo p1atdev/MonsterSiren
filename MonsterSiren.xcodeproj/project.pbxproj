@@ -35,6 +35,7 @@
 		3A80393A27312B9B0044803F /* LoadingBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80393927312B9A0044803F /* LoadingBannerView.swift */; };
 		3A80393C2731382F0044803F /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80393B2731382F0044803F /* PlayerView.swift */; };
 		3A80393E273143EB0044803F /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80393D273143EB0044803F /* AlbumDetailView.swift */; };
+		3A86BB0928292D8A000020E1 /* AlbumDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A86BB0828292D8A000020E1 /* AlbumDetailViewModel.swift */; };
 		3A8CE3642732BD8000DBDEDC /* URLDynamicImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8CE3632732BD8000DBDEDC /* URLDynamicImageView.swift */; };
 		3AB81E34276B6EB10016107B /* LyricsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB81E32276B6EB10016107B /* LyricsHeader.swift */; };
 		3AB81E35276B6EB10016107B /* LyricsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB81E33276B6EB10016107B /* LyricsItem.swift */; };
@@ -94,6 +95,7 @@
 		3A80393927312B9A0044803F /* LoadingBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingBannerView.swift; sourceTree = "<group>"; };
 		3A80393B2731382F0044803F /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		3A80393D273143EB0044803F /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
+		3A86BB0828292D8A000020E1 /* AlbumDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailViewModel.swift; sourceTree = "<group>"; };
 		3A8CE3632732BD8000DBDEDC /* URLDynamicImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDynamicImageView.swift; sourceTree = "<group>"; };
 		3AB81E31276B6EB10016107B /* LyricsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsParser.swift; sourceTree = "<group>"; };
 		3AB81E32276B6EB10016107B /* LyricsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsHeader.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				3A80392827310E9B0044803F /* AlbumsViewModel.swift */,
+				3A86BB0828292D8A000020E1 /* AlbumDetailViewModel.swift */,
 				3A80392F27311ACD0044803F /* URLImageViewModel.swift */,
 				3A80393527312A2B0044803F /* PlayerViewModel.swift */,
 				3A5515E3276B4E4300EAFDDD /* LyricsViewModel.swift */,
@@ -415,6 +418,7 @@
 				3ACD4DFA27363582000787C6 /* SongsList.swift in Sources */,
 				3A5515D5276AB19D00EAFDDD /* Lyrics.swift in Sources */,
 				3AB81E35276B6EB10016107B /* LyricsItem.swift in Sources */,
+				3A86BB0928292D8A000020E1 /* AlbumDetailViewModel.swift in Sources */,
 				3A80392927310E9B0044803F /* AlbumsViewModel.swift in Sources */,
 				3ACD4DFC27365779000787C6 /* MiniPlayer.swift in Sources */,
 				3AB81E36276B6EB10016107B /* LyricsParser.swift in Sources */,
@@ -591,7 +595,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = 8Q2A6VDAQN;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -635,7 +639,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = 8Q2A6VDAQN;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

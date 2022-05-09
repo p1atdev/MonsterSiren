@@ -24,6 +24,9 @@ struct AlbumDetailView: View {
     /// プレイヤー
     @EnvironmentObject var playerViewModel: PlayerViewModel
     
+    /// viewmodel
+    @StateObject var albumDetailViewModel = AlbumDetailViewModel()
+    
     /// ウィンドウのサイズ
     var window = UIScreen.main.bounds
     
@@ -50,35 +53,46 @@ struct AlbumDetailView: View {
                             // MARK: ジャケット画像とアルバム名
                             ZStack(alignment: .top) {
                                 
-                                GeometryReader { reader in
-                                    // 後ろのグラデーション
-                                    LinearGradient(gradient: Gradient(colors: [.black, .gray.opacity(0)]),
-                                                   startPoint: .top,
-                                                   endPoint: .bottom)
+                                GeometryReader { reader -> AnyView in
                                     
-                                    if let albumDetail = albumDetail {
-                                        // でかいバナー画像
-                                        URLImageView(viewModel: .init(url: albumDetail.coverDeUrl))
-                                            .scaledToFill()
-                                            .overlay(
-                                                Rectangle()
-                                                    .foregroundColor(.black)
-                                                    .opacity(0.4)
-                                                    .blur(radius: 8)
+                                    let offset = reader.frame(in: .global).minY
+                                    
+                                    return AnyView(
+                                        ZStack(alignment: .center) {
+                                            // 後ろのグラデーション
+                                            LinearGradient(gradient: Gradient(colors: [.black, .gray.opacity(0)]),
+                                                           startPoint: .top,
+                                                           endPoint: .bottom)
+                                            
+                                            if let albumDetail = albumDetail {
+                                                // でかいバナー画像
+                                                URLImageView(viewModel: .init(url: albumDetail.coverDeUrl))
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .frame(width: reader.size.width)
+                                                    .overlay(
+                                                        Rectangle()
+                                                            .foregroundColor(.black)
+                                                            .opacity(0.4)
+                                                            .blur(radius: 8)
+                                                    )
+                                            }
+                                        }
+                                            .frame(minHeight: window.height / 4 + (offset > 0 ? offset : 0))
+                                            .mask(
+                                                LinearGradient(
+                                                    gradient: Gradient(
+                                                        colors: [Color](repeating: Color.black,
+                                                                        count: 7)
+                                                        + [Color.black.opacity(0)]
+                                                    ),
+                                                    startPoint: .top,
+                                                    endPoint: .bottom)
                                             )
-                                    }
+                                            .offset(y: (offset > 0 ? -offset : 0))
+                                    )
+                                    
                                 }
-                                .frame(minHeight: window.height / 4)
-                                .mask(
-                                    LinearGradient(
-                                        gradient: Gradient(
-                                            colors: [Color](repeating: Color.black,
-                                                            count: 7)
-                                            + [Color.black.opacity(0)]
-                                        ),
-                                        startPoint: .top,
-                                        endPoint: .bottom)
-                                )
+                                
                                 
                                 // アルバムのジャケ画像とアルバム名
                                 if let album = album {
@@ -225,6 +239,21 @@ struct AlbumDetailView: View {
                         .clipped()
                 )
             }
+        }
+    }
+}
+
+struct AlbumDetail_Preview: PreviewProvider {
+    static var previews: some View {
+        if #available(iOS 15.0, *) {
+            AlbumDetailView(album: Binding.constant(Album(id: "4520",
+                                                          name: "愚人号OST",
+                                                          coverUrl: "https://web.hycdn.cn/siren/pic/20220509/60c48c2cd057afb6d4dcd65cae5c3fe9.jpg",
+                                                          artistes: ["塞壬唱片-MSR"])),
+                            loaded: Binding.constant(true))
+            .ignoresSafeArea()
+            .environmentObject(PlayerViewModel())
+//            .previewInterfaceOrientation(.landscapeLeft)
         }
     }
 }
