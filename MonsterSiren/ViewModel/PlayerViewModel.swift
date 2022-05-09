@@ -231,19 +231,19 @@ class PlayerViewModel: ObservableObject {
         if let type = type {
             switch type {
             case "oneSong":
-                playType = PlayType.oneAlbum.rawValue
+                playType = PlayType.allSongs.rawValue
                 isLoop = true
             case "oneAlbum":
-                playType = PlayType.allSongs.rawValue
+                playType = PlayType.oneSong.rawValue
                 isLoop = true
             case "allSongs":
                 playType = PlayType.normal.rawValue
                 isLoop = false
             case "normal":
-                playType = PlayType.oneSong.rawValue
+                playType = PlayType.oneAlbum.rawValue
                 isLoop = true
             default:
-                playType = PlayType.oneSong.rawValue
+                playType = PlayType.normal.rawValue
             }
         }
     
