@@ -77,7 +77,8 @@ struct AlbumDetailView: View {
                                                     )
                                             }
                                         }
-                                            .frame(minHeight: window.height / 4 + (offset > 0 ? offset : 0))
+                                            .frame(minHeight: window.height / 4
+                                                   + (offset > 0 ? offset : 0))
                                             .mask(
                                                 LinearGradient(
                                                     gradient: Gradient(
@@ -88,7 +89,7 @@ struct AlbumDetailView: View {
                                                     startPoint: .top,
                                                     endPoint: .bottom)
                                             )
-                                            .offset(y: (offset > 0 ? -offset : 0))
+                                            .offset(y: offset > 0 ? -offset : 0)
                                     )
                                     
                                 }
@@ -119,31 +120,76 @@ struct AlbumDetailView: View {
                                         
                                         Spacer()
                                     }
-                                    .padding(.top, 32)
+                                    
                                     .padding(.horizontal, 32)
                                     .padding(.bottom, 50)
                                 }
                             }
+                            .padding(.top, 32)
+                            
+                            HStack {
+                                Spacer()
+                                
+                                Button(action: {
+                                    
+                                    // アルバムの一番上から再生
+                                    guard let songs = songs else { return }
+                                    playerViewModel.play(song: songs[0], albumDetail: albumDetail)
+                                    
+                                }, label: {
+                                    
+                                    ZStack {
+                                        
+                                        Circle()
+                                            .foregroundColor(Color("blue"))
+                                        
+                                        Image(systemName: "play.fill")
+                                            .foregroundColor(.white)
+                                            .font(.title2)
+                                        
+                                    }
+                                    .frame(width: 64, height: 64, alignment: .center)
+                                    // 画面めっちゃ細い時はアルバム画像の右下になるように移動させる
+                                    .offset(y: geometry.size.width > 750
+                                            ? -28
+                                            : geometry.size.width > 450
+                                            ? -72
+                                            : -140)
+                                    
+                                })
+                                .offset(x: -72)
+                            }
+                            
                         } else {
                             // MARK: iPhoneとかの画面細いデバイスの時
                             ZStack(alignment: .top) {
                                 
-                                GeometryReader { reader in
-                                    // 後ろのグラデーション
-                                    LinearGradient(gradient: Gradient(colors: [.black, .gray.opacity(0)]),
-                                                   startPoint: .top,
-                                                   endPoint: .bottom)
+                                GeometryReader { reader -> AnyView in
                                     
-                                    if let albumDetail = albumDetail {
-                                        // でかいバナー画像
-                                        URLImageView(viewModel: .init(url: albumDetail.coverDeUrl))
-                                            .scaledToFill()
-                                            .overlay(
-                                                Rectangle()
-                                                    .foregroundColor(.black)
-                                                    .opacity(0.4)
-                                                    .blur(radius: 8)
-                                            )
+                                    let offset = reader.frame(in: .global).minY
+                                    
+                                    return AnyView(
+                                        ZStack(alignment: .center) {
+                                            // 後ろのグラデーション
+                                            LinearGradient(gradient: Gradient(colors: [.black, .gray.opacity(0)]),
+                                                           startPoint: .top,
+                                                           endPoint: .bottom)
+                                            
+                                            if let albumDetail = albumDetail {
+                                                // でかいバナー画像
+                                                URLImageView(viewModel: .init(url: albumDetail.coverDeUrl))
+                                                    .scaledToFill()
+                                                    .frame(width: reader.size.width)
+                                                    .overlay(
+                                                        Rectangle()
+                                                            .foregroundColor(.black)
+                                                            .opacity(0.4)
+                                                            .blur(radius: 8)
+                                                    )
+                                            }
+                                        }
+                                            .frame(minHeight: window.height / 4
+                                                   + (offset > 0 ? offset : 0))
                                             .mask(
                                                 LinearGradient(
                                                     gradient: Gradient(
@@ -154,9 +200,10 @@ struct AlbumDetailView: View {
                                                     startPoint: .top,
                                                     endPoint: .bottom)
                                             )
-                                    }
+                                            .offset(y: (offset > 0 ? -offset : 0))
+                                    )
                                 }
-                                .frame(maxHeight: window.height / 2)
+//                                .frame(maxHeight: window.height / 2)
                                 
                                 // アルバムのジャケ画像とアルバム名
                                 if let album = album {
@@ -169,7 +216,37 @@ struct AlbumDetailView: View {
                                                     radius: 12,
                                                     x: -4,
                                                     y: 8)
-                                            .padding(.top, safeAreaIntents.top + 64)
+//                                            .padding(.top, safeAreaIntents.top + 64)
+                                            .overlay(
+                                                ZStack {
+                                                    Button(action: {
+                                                        
+                                                        // アルバムの一番上から再生
+                                                        guard let songs = songs else { return }
+                                                        playerViewModel.play(song: songs[0], albumDetail: albumDetail)
+                                                        
+                                                    }, label: {
+                                                        
+                                                        ZStack {
+                                                            Circle()
+                                                                .foregroundColor(Color("blue"))
+                                                            
+                                                            Image(systemName: "play.fill")
+                                                                .foregroundColor(.white)
+                                                                .font(.title2)
+                                                        }
+                                                        
+                                                    })
+                                                    .frame(width: 64,
+                                                           height: 64,
+                                                           alignment: .bottomTrailing)
+                                                    .offset(x: 20,
+                                                            y: 16)
+                                                } // ZStack
+                                                    .frame(maxWidth: .infinity,
+                                                           maxHeight: .infinity,
+                                                           alignment: .bottomTrailing)
+                                            )
                                         
                                         
                                         Text(album.name)
@@ -177,50 +254,18 @@ struct AlbumDetailView: View {
                                                   ? .system(size: 32)
                                                   : .largeTitle)
                                             .fontWeight(.heavy)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .frame(maxWidth: .infinity,
+                                                   alignment: .leading)
                                             .padding()
                                             .foregroundColor(.white)
                                         
                                     }
                                     .padding()
+                                    .padding(.top, 120)
                                 }
                             }
                         }
-                        
-                        // 右側にアルバム全再生ボタン
-                        HStack {
-                            Spacer()
-                            
-                            Button(action: {
-                                
-                                // アルバムの一番上から再生
-                                guard let songs = songs else { return }
-                                playerViewModel.play(song: songs[0], albumDetail: albumDetail)
-                                
-                            }, label: {
-                                
-                                ZStack {
-                                    
-                                    Circle()
-                                        .foregroundColor(Color("blue"))
-                                    
-                                    Image(systemName: "play.fill")
-                                        .foregroundColor(.white)
-                                        .font(.title2)
-                                    
-                                }
-                                .frame(width: 64, height: 64, alignment: .center)
-                                // 画面めっちゃ細い時はアルバム画像の右下になるように移動させる
-                                .offset(y: geometry.size.width > 750
-                                        ? -28
-                                        : geometry.size.width > 450
-                                        ? -72
-                                        : -140)
-                                
-                            })
-                                .offset(x: geometry.size.width > 750 ? -72 : -36)
-                        }
-                        
+
                         // 曲一覧
                         SongsList(album: $album,
                                   songs: $songs,
