@@ -43,6 +43,7 @@
 		3ACD4DFA27363582000787C6 /* SongsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD4DF927363582000787C6 /* SongsList.swift */; };
 		3ACD4DFC27365779000787C6 /* MiniPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD4DFB27365779000787C6 /* MiniPlayer.swift */; };
 		3AD22C0527AAFFDA0059761C /* ScrollSongText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD22C0427AAFFDA0059761C /* ScrollSongText.swift */; };
+		3ADE30D0282AC9B7005CCEF4 /* SwiftAudioEx in Frameworks */ = {isa = PBXBuildFile; productRef = 3ADE30CF282AC9B7005CCEF4 /* SwiftAudioEx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3ADE30D0282AC9B7005CCEF4 /* SwiftAudioEx in Frameworks */,
 				3A47A36E2731936D00A509B6 /* SwiftAudioPlayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +277,7 @@
 			name = MonsterSiren;
 			packageProductDependencies = (
 				3A47A36D2731936D00A509B6 /* SwiftAudioPlayer */,
+				3ADE30CF282AC9B7005CCEF4 /* SwiftAudioEx */,
 			);
 			productName = MonsterSiren;
 			productReference = 3A8038E62731048F0044803F /* MonsterSiren.app */;
@@ -350,6 +353,7 @@
 			mainGroup = 3A8038DD2731048F0044803F;
 			packageReferences = (
 				3A47A36C2731936D00A509B6 /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */,
+				3ADE30CE282AC9B7005CCEF4 /* XCRemoteSwiftPackageReference "SwiftAudio" */,
 			);
 			productRefGroup = 3A8038E72731048F0044803F /* Products */;
 			projectDirPath = "";
@@ -595,7 +599,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = 8Q2A6VDAQN;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -639,7 +643,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = 8Q2A6VDAQN;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -820,6 +824,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		3ADE30CE282AC9B7005CCEF4 /* XCRemoteSwiftPackageReference "SwiftAudio" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DoubleSymmetry/SwiftAudio.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.15.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -827,6 +839,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3A47A36C2731936D00A509B6 /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */;
 			productName = SwiftAudioPlayer;
+		};
+		3ADE30CF282AC9B7005CCEF4 /* SwiftAudioEx */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3ADE30CE282AC9B7005CCEF4 /* XCRemoteSwiftPackageReference "SwiftAudio" */;
+			productName = SwiftAudioEx;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

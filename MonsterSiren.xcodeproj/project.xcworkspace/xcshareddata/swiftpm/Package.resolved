@@ -1,16 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "SwiftAudioPlayer",
-        "repositoryURL": "https://github.com/tanhakabir/SwiftAudioPlayer.git",
-        "state": {
-          "branch": null,
-          "revision": "2fdfc62ce9f5d8b818ee1b2a9ac061fce4f64af9",
-          "version": "7.6.0"
-        }
+  "pins" : [
+    {
+      "identity" : "swiftaudio",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/DoubleSymmetry/SwiftAudio.git",
+      "state" : {
+        "revision" : "8276f38b1b543fdb0fa3dd31d5f259fdd74b82f9",
+        "version" : "0.15.2"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swiftaudioplayer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tanhakabir/SwiftAudioPlayer.git",
+      "state" : {
+        "revision" : "2fdfc62ce9f5d8b818ee1b2a9ac061fce4f64af9",
+        "version" : "7.6.0"
+      }
+    }
+  ],
+  "version" : 2
 }

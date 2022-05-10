@@ -18,6 +18,9 @@ struct LyricsView: View {
     /// ハイライトする歌詞
     @State private var highlightedLyric: LyricsItem?
     
+    /// ハイライトする歌詞のタイム
+    @State private var highlightedLyricTime: Double?
+    
     /// 歌詞のとこにスクロールするかどうか
     @State private var shouldScrollToLyric: Bool = true
     
@@ -43,29 +46,32 @@ struct LyricsView: View {
                                 .id("top")
                             
                             if let lyrics = lyricsViewModel.lyrics.lyrics {
-                                ForEach(lyrics, id: \.time) { lyric in
+                                ForEach(lyrics, id: \.id) { lyric in
                                     // 再生されてる箇所に合わせてスクロールを移動&文字のopcityを変更
                                     Text(lyric.text)
                                         .font(.largeTitle.bold())
                                         .frame(maxWidth: .infinity,
                                                alignment: .leading)
-                                        .opacity(lyric.time == highlightedLyric?.time ? 1.0 : 0.5)
-                                        .id(lyric.time)
+                                        .opacity(lyric.time == highlightedLyricTime ? 1.0 : 0.5)
+                                        .id("\(lyric.time):\(lyric.text)")
                                     
                                 }
                                 .onChange(of: playerViewModel.elapsedTime) { time in
                                     // TODO: もしどっかにスクロールしていた場合を除きたい(Spotifyみたいに )
                                     
-                                    guard let lyric = lyrics.filter({
+                                    guard let justMatchedTime = lyrics.filter({
                                         $0.time <= playerViewModel.elapsedTime
-                                    }).last else { return }
+                                    }).last?.time else { return }
+                                    
+                                    guard let lyric = lyrics.first(where: {$0.time == justMatchedTime}) else { return }
                                     
                                     // スクロール
                                     withAnimation {
                                         highlightedLyric = lyric
+                                        highlightedLyricTime = lyric.time
                                         
 //                                        if shouldScrollToLyric {
-                                        scrollProxy.scrollTo(lyric.time,
+                                        scrollProxy.scrollTo("\(lyric.time):\(lyric.text)",
                                                              anchor: .center)
 //                                        }
                                     }

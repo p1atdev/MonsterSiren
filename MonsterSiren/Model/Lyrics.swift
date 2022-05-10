@@ -26,11 +26,15 @@ class Lyrics {
         }
         
         let parser = LyricsParser(lyrics: lyricsString)
-        self.lyrics = parser.lyrics
+        // 時間が早いか、同じ時間であれば文字が早い方(英字)を先にする
+        self.lyrics = parser.lyrics.sorted(by: { $0.time < $0.time && $0.text < $1.text })
     }
     
     // 歌詞データを消す
     func clearLyrics() {
         lyrics = nil
     }
+}
+
+extension LyricsItem: Identifiable {
 }

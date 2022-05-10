@@ -133,8 +133,8 @@ public class LyricsParser {
     
     private func parseLyric(line: String) -> [LyricsItem] {
         var cLine = line
-        var items : [LyricsItem] = []
-        while(cLine.hasPrefix("[")) {
+        var items: [LyricsItem] = []
+        while (cLine.hasPrefix("[")) {
             guard let closureIndex = cLine.range(of: "]")?.lowerBound else {
                 break
             }
@@ -144,7 +144,7 @@ public class LyricsParser {
             let amidString = String(cLine[startIndex..<endIndex])
             
             let amidStrings = amidString.components(separatedBy: ":")
-            var hour:TimeInterval = 0
+            var hour: TimeInterval = 0
             var minute: TimeInterval = 0
             var second: TimeInterval = 0
             if amidStrings.count >= 1 {

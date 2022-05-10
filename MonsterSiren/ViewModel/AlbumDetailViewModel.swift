@@ -9,6 +9,6 @@ import SwiftUI
 
 class AlbumDetailViewModel: ObservableObject {
     
-    @Published var offset: CGFloat = 0
+//    @Published var offset: CGFloat = 0
     
 }

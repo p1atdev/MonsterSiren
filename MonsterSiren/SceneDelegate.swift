@@ -107,37 +107,37 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func remoteTogglePlayPause(_ event: MPRemoteCommandEvent) {
         // イヤホンのセンターボタンを押した時の処理
-        print("イヤホンのセンターボタンを押した時の処理")
+        print("[*] イヤホンのセンターボタンを押した時の処理")
         // 再生をtoggleする
-        playerViewModel.togglePlayStop()
+//        playerViewModel.togglePlayStop()
     }
     
     func remotePlay(_ event: MPRemoteCommandEvent) {
         // プレイボタンが押された時の処理
-        print("プレイボタンが押された時の処理")
-        SAPlayer.shared.play()
+        print("[*] プレイボタンが押された時の処理")
+//        SAPlayer.shared.play()
     }
     
     func remotePause(_ event: MPRemoteCommandEvent) {
         // ポーズボタンが押された時の処理
-        print("ポーズが押された時の処理")
-        SAPlayer.shared.pause()
+        print("[*] ポーズが押された時の処理")
+//        SAPlayer.shared.pause()
     }
     
     // TODO: ここの曲スキップがうまくいかない
     
     func remoteNextTrack(_ event: MPRemoteCommandEvent) {
         // 「次へ」ボタンが押された時の処理
-        print("次の曲へ")
+        print("[*] 次の曲へ")
         
-        playerViewModel.skipForward()
+//        playerViewModel.skipForward()
     }
     
     func remotePrevTrack(_ event: MPRemoteCommandEvent) {
         // 「前へ」ボタンが押された時の処理
-        print("前の曲へ")
+        print("[*] 前の曲へ")
         
-        playerViewModel.skipBackwards()
+//        playerViewModel.skipBackwards()
     }
 
 }
