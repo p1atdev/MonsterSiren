@@ -35,6 +35,3 @@ class Lyrics {
         lyrics = nil
     }
 }
-
-extension LyricsItem: Identifiable {
-}

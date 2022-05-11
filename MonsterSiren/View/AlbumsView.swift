@@ -47,14 +47,24 @@ struct AlbumsView: View {
                 .padding(.bottom, safeAreaIntents.bottom)
             }
             .opacity(albumToPresent != nil || playerViewModel.shouldShowLyrics ? 0.0 : 1.0)
-            .onAppear {
+//            .onAppear {
+//                if albumsModel.albums == nil {
+//                    DispatchQueue.global().async {
+//
+//                        albumsModel.fetch() { status in
+//                            withAnimation(.linear(duration: 0.3).delay(0.5)) {
+//                                loaded = status
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+            .task {
                 if albumsModel.albums == nil {
-                    DispatchQueue.global().async {
-                        albumsModel.fetch() { status in
-                            withAnimation(.linear(duration: 0.3).delay(0.5)) {
-                                loaded = status
-                            }
-                        }
+                    let status = await albumsModel.fetch()
+                    
+                    withAnimation(.linear(duration: 0.3).delay(0.5)) {
+                        loaded = status
                     }
                 }
             }

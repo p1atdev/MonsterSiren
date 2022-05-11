@@ -10,7 +10,8 @@ import SwiftUI
 import AVFoundation
 import AVKit
 import MediaPlayer
-import SwiftAudioPlayer
+//import SwiftAudioPlayer
+import SwiftAudioEx
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

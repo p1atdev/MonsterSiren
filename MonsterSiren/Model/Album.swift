@@ -116,6 +116,20 @@ struct AlbumDetail: Codable, Identifiable {
              coverDeUrl,
              songs
     }
+    
+    /// id指定で取得
+    static func fetch(id: String) async -> AlbumDetail? {
+        guard let url = URL(string: "https://monster-siren.hypergryph.com/api/album/\(id)/detail") else { return nil }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let decodedData = try JSONDecoder().decode(AlbumDetailData.self, from: data)
+            return decodedData.data
+        } catch {
+            print("Error: Album.getDetail,", error)
+            return nil
+        }
+    }
 }
 
 
@@ -130,7 +144,8 @@ struct Song: Codable, Identifiable {
              artistes
     }
     
-    // SongDetail を取得する
+    /// SongDetail を取得する
+    @available(*, deprecated, message: "Use async version of getDetail")
     func getDetail(completion: @escaping (SongDetail?) -> Void) {
         guard let url = URL(string: "https://monster-siren.hypergryph.com/api/song/\(id)") else { return }
         
@@ -155,6 +170,22 @@ struct Song: Codable, Identifiable {
             }
         }
         .resume()
+    }
+    
+    /// SongDetail を取得する
+    func getDetail() async -> SongDetail? {
+        guard let url = URL(string: "https://monster-siren.hypergryph.com/api/song/\(id)") else { return nil }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            
+            let decodedData = try JSONDecoder().decode(SongDetailData.self, from: data)
+            
+            return decodedData.data
+        } catch {
+            print("[*] SongDetail取得エラー,", error)
+            return nil
+        }
     }
 }
 

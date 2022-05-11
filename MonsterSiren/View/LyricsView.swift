@@ -98,15 +98,20 @@ struct LyricsView: View {
                 }
                 .padding(.horizontal, window.width > 750 ? 64 : 20)
                 // 曲が変わったときに歌詞を更新する
-                .onChange(of: playerViewModel.currentSong?.id) { song in
-                    // 歌詞を消す
-                    lyricsViewModel.clearLyrics()
-                    
-                    // 一番上にスクロールする
-                    scrollProxy.scrollTo("top")
-                    
-                    // 歌詞を取得
-                    self.getLyrics()
+                .onChange(of: playerViewModel.elapsedTime) { time in
+                    if time <= 1.0 { // 曲の最初の1秒になったら一番上にスクロール
+                        
+                        // 歌詞を消す
+                        lyricsViewModel.clearLyrics()
+                        
+                        // 一番上にスクロールする
+                        scrollProxy.scrollTo("top")
+                        
+                        Task {
+                            // 歌詞を取得
+                            await self.getLyrics()
+                        }
+                    }
                 }
             
             }
@@ -146,12 +151,14 @@ struct LyricsView: View {
                 .opacity(0.9)
         )
         .onAppear(perform: {
-            self.getLyrics()
+            Task {
+                await self.getLyrics()
+            }
         })
     }
     
     /// 現在の曲の歌詞を取得する
-    private func getLyrics() {
-        lyricsViewModel.fetchLyricsFrom(playerViewModel.currentSong?.lyricUrl)
+    private func getLyrics() async {
+        await lyricsViewModel.fetchLyricsFrom(playerViewModel.currentSong?.lyricUrl)
     }
 }

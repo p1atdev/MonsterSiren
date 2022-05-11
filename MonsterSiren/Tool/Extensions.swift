@@ -139,3 +139,5 @@ extension String {
      }
 }
 
+
+extension LyricsItem: Identifiable {}

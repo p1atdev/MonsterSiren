@@ -36,8 +36,10 @@ struct SongsList: View {
                     })[index]
                     
                     Button(action: {
-                        // 曲を再生する
-                        playerViewModel.play(song: song, albumDetail: albumDetail)
+                        Task {
+                            // 曲を再生する
+                            await playerViewModel.play(song: song, albumDetail: albumDetail)
+                        }
                         
                     }, label: {
                         ZStack {

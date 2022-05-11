@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftAudioPlayer
+import SwiftAudioEx
 
 ///// 再生待ちリスト
 class PlayQueue {
@@ -18,12 +19,19 @@ class PlayQueue {
     /// oneSong | oneAlbum | allSongs
     @AppStorage("playType") private var playType: String = "oneAlbum"
     
+    /// プレーヤー
+//    var player: QueuedAudioPlayer
+    
     /// これから再生することになる曲リスト([Song])
     /// 今再生している曲は含まない
     var songsQueue: [Song] = []
     
     /// 詳細を含んだリスト
     var fullSongsQueue: Dictionary<Int, FullSongData> = [:]
+    
+//    init(player: QueuedAudioPlayer) {
+//        self.player = player
+//    }
     
     /// 生成する
     func genereteQueue(currentSong song: Song, albumDetail album: AlbumDetail) {
@@ -62,7 +70,7 @@ class PlayQueue {
             // キューを更新
             self.updateQueue()
             
-            print("キュー更新開始")
+            print("[*] キュー更新開始")
         }
         
     }
@@ -88,7 +96,7 @@ class PlayQueue {
                     // キューを更新
                     self.updateQueue()
                     
-                    print("キュー更新開始")
+                    print("[*] キュー更新開始")
                 })
             case "normal":
                 self.songsQueue = album.songs
@@ -104,7 +112,7 @@ class PlayQueue {
             // キューを更新
             self.updateQueue()
             
-            print("キュー更新開始")
+            print("[*] キュー更新開始")
         }
     }
     

@@ -131,11 +131,11 @@ struct AlbumDetailView: View {
                                 Spacer()
                                 
                                 Button(action: {
-                                    
-                                    // アルバムの一番上から再生
-                                    guard let songs = songs else { return }
-                                    playerViewModel.play(song: songs[0], albumDetail: albumDetail)
-                                    
+                                    Task {
+                                        // アルバムの一番上から再生
+                                        guard let songs = songs else { return }
+                                        await playerViewModel.play(song: songs[0], albumDetail: albumDetail)
+                                    }
                                 }, label: {
                                     
                                     ZStack {
@@ -220,11 +220,11 @@ struct AlbumDetailView: View {
                                             .overlay(
                                                 ZStack {
                                                     Button(action: {
-                                                        
-                                                        // アルバムの一番上から再生
-                                                        guard let songs = songs else { return }
-                                                        playerViewModel.play(song: songs[0], albumDetail: albumDetail)
-                                                        
+                                                        Task {
+                                                            // アルバムの一番上から再生
+                                                            guard let songs = songs else { return }
+                                                            await playerViewModel.play(song: songs[0], albumDetail: albumDetail)
+                                                        }
                                                     }, label: {
                                                         
                                                         ZStack {

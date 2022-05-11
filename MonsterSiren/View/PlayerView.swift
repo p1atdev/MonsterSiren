@@ -136,7 +136,7 @@ struct PlayerView: View {
                 HStack(alignment: .center) {
                     // 前の曲
                     Button(action: {
-                        playerViewModel.skipBackwards()
+                        playerViewModel.skipToPrevious()
                     }, label: {
                         Image(systemName: "backward.end.fill")
                     })
@@ -156,7 +156,7 @@ struct PlayerView: View {
                     
                     // 次の曲
                     Button(action: {
-                        playerViewModel.skipForward()
+                        playerViewModel.skipToNext()
                     }, label: {
                         Image(systemName: "forward.end.fill")
                     })

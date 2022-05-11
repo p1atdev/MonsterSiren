@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A289EC6282ADDFB001A526E /* SwiftAudioEx in Frameworks */ = {isa = PBXBuildFile; productRef = 3A289EC5282ADDFB001A526E /* SwiftAudioEx */; };
+		3A289EC9282ADEC0001A526E /* SwiftAudioPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 3A289EC8282ADEC0001A526E /* SwiftAudioPlayer */; };
 		3A47A36B27318BDD00A509B6 /* PlayQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47A36A27318BDD00A509B6 /* PlayQueue.swift */; };
 		3A47A36E2731936D00A509B6 /* SwiftAudioPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 3A47A36D2731936D00A509B6 /* SwiftAudioPlayer */; };
 		3A47A3702731944100A509B6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A47A36F2731944100A509B6 /* Extensions.swift */; };
@@ -43,7 +45,6 @@
 		3ACD4DFA27363582000787C6 /* SongsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD4DF927363582000787C6 /* SongsList.swift */; };
 		3ACD4DFC27365779000787C6 /* MiniPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD4DFB27365779000787C6 /* MiniPlayer.swift */; };
 		3AD22C0527AAFFDA0059761C /* ScrollSongText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD22C0427AAFFDA0059761C /* ScrollSongText.swift */; };
-		3ADE30D0282AC9B7005CCEF4 /* SwiftAudioEx in Frameworks */ = {isa = PBXBuildFile; productRef = 3ADE30CF282AC9B7005CCEF4 /* SwiftAudioEx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,8 +112,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ADE30D0282AC9B7005CCEF4 /* SwiftAudioEx in Frameworks */,
+				3A289EC6282ADDFB001A526E /* SwiftAudioEx in Frameworks */,
 				3A47A36E2731936D00A509B6 /* SwiftAudioPlayer in Frameworks */,
+				3A289EC9282ADEC0001A526E /* SwiftAudioPlayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,7 +279,8 @@
 			name = MonsterSiren;
 			packageProductDependencies = (
 				3A47A36D2731936D00A509B6 /* SwiftAudioPlayer */,
-				3ADE30CF282AC9B7005CCEF4 /* SwiftAudioEx */,
+				3A289EC5282ADDFB001A526E /* SwiftAudioEx */,
+				3A289EC8282ADEC0001A526E /* SwiftAudioPlayer */,
 			);
 			productName = MonsterSiren;
 			productReference = 3A8038E62731048F0044803F /* MonsterSiren.app */;
@@ -354,6 +357,8 @@
 			packageReferences = (
 				3A47A36C2731936D00A509B6 /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */,
 				3ADE30CE282AC9B7005CCEF4 /* XCRemoteSwiftPackageReference "SwiftAudio" */,
+				3A289EC4282ADDFB001A526E /* XCRemoteSwiftPackageReference "SwiftAudio" */,
+				3A289EC7282ADEC0001A526E /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */,
 			);
 			productRefGroup = 3A8038E72731048F0044803F /* Products */;
 			projectDirPath = "";
@@ -599,7 +604,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = 8Q2A6VDAQN;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -616,8 +621,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -643,7 +647,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = 8Q2A6VDAQN;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -660,8 +664,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -816,6 +819,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3A289EC4282ADDFB001A526E /* XCRemoteSwiftPackageReference "SwiftAudio" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DoubleSymmetry/SwiftAudio.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.3;
+			};
+		};
+		3A289EC7282ADEC0001A526E /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tanhakabir/SwiftAudioPlayer.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		3A47A36C2731936D00A509B6 /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tanhakabir/SwiftAudioPlayer.git";
@@ -835,15 +854,20 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3A47A36D2731936D00A509B6 /* SwiftAudioPlayer */ = {
+		3A289EC5282ADDFB001A526E /* SwiftAudioEx */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3A289EC4282ADDFB001A526E /* XCRemoteSwiftPackageReference "SwiftAudio" */;
+			productName = SwiftAudioEx;
+		};
+		3A289EC8282ADEC0001A526E /* SwiftAudioPlayer */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3A47A36C2731936D00A509B6 /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */;
 			productName = SwiftAudioPlayer;
 		};
-		3ADE30CF282AC9B7005CCEF4 /* SwiftAudioEx */ = {
+		3A47A36D2731936D00A509B6 /* SwiftAudioPlayer */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3ADE30CE282AC9B7005CCEF4 /* XCRemoteSwiftPackageReference "SwiftAudio" */;
-			productName = SwiftAudioEx;
+			package = 3A47A36C2731936D00A509B6 /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */;
+			productName = SwiftAudioPlayer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

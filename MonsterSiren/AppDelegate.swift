@@ -7,7 +7,7 @@
 
 import UIKit
 import AVFoundation
-import SwiftAudioPlayer
+//import SwiftAudioPlayer
 import AVKit
 import MediaPlayer
 
@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // 音声のオフライン再生？
     func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
-        SAPlayer.Downloader.setBackgroundCompletionHandler(completionHandler)
+//        SAPlayer.Downloader.setBackgroundCompletionHandler(completionHandler)
     }
 }
 
