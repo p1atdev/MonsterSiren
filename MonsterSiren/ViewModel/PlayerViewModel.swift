@@ -69,7 +69,10 @@ class PlayerViewModel: ObservableObject {
             .play,
             .togglePlayPause,
             .next,
-            .previous
+            .previous,
+            .skipForward(preferredIntervals: [30]),
+            .skipBackward(preferredIntervals: [30]),
+            .stop
         ]
         
         // ループ再生
@@ -81,89 +84,14 @@ class PlayerViewModel: ObservableObject {
             self.allSongDetails = details
         }
         
-        
+        // リモートコマンド？
+        try? AudioSessionController.shared.set(category: .playback)
+        //...
+        // You should wait with activating the session until you actually start playback of audio.
+        // This is to avoid interrupting other audio without the need to do it.
+        try? AudioSessionController.shared.activateSession()
     }
-    
-    /// 再生
-    @available(*, deprecated, message: "Use async version of play")
-    func play(song: Song, albumDetail album: AlbumDetail?) {
-        // アルバムの詳細を手に入れる
-        withAnimation {
-            currentAlbum = album
-        }
-        
-        // まずは曲の詳細を手に入れる
-        song.getDetail(completion: { detail in
-            withAnimation {
-                self.currentSong = detail
-            }
-            
-            //曲のurl
-            if let currentSong = self.currentSong {
-                let songUrl = currentSong.sourceUrl
-                if let url = URL(string: songUrl) {
-                    // 再生する
-//                    SAPlayer.shared.startRemoteAudio(withRemoteUrl: url)
-//                    SAPlayer.shared.play()
-//                    SAPlayer.shared.volume = Float(self.volume)
-                    
-                    do {
-                        if let album = album {
-                            let audioItem = DefaultAudioItem(audioUrl: url.absoluteString,
-                                                             artist: song.artistes.joined(separator: ", "),
-                                                             title: song.name,
-                                                             albumTitle: album.name,
-                                                             sourceType: .stream,
-                                                             artwork: UIImage(url: album.coverUrl))
-                            try self.player.add(item: audioItem, playWhenReady: true)
-                        } else {
-                            let audioItem = DefaultAudioItem(audioUrl: url.absoluteString,
-                                                             artist: song.artistes.joined(separator: ", "),
-                                                             title: song.name,
-                                                             sourceType: .stream)
-                            try self.player.add(item: audioItem, playWhenReady: true)
-                        }
-                        
-                        self.changeVolume(self.volume)
-                    } catch {
-                        print("[*] play error:", error)
-                    }
-                    
-                    withAnimation {
-                        self.elapsedTime = 0
-                    }
-                    
-                    // ロック画面での表示の設定、キューの生成
-                    if let album = album {
-                        let fullSongData = FullSongData(songDetail: currentSong, albumDetail: album)
-                        // 情報のセット
-//                        SAPlayer.shared.mediaInfo = fullSongData.lockScreenParameter
-                        self.setMediaInfo(fullSongData)
-                        
-                        // キューをリセット
-//                        self.playQueue.fullSongsQueue = [:]
-                        
-                        // キューに追加
-//                        self.playQueue.fullSongsQueue[0] = fullSongData
-                        
-                        // キューを生成する
-//                        self.playQueue.genereteQueue(currentSong: song, albumDetail: album)
-                        
-                        // キューを生成する
-                        song.getDetail(completion: { detail in
-                            guard let detail = detail else { return }
-                            Task {
-                                await self.createQueueWith(currentSong: detail, albumDetail: album)
-                            }
-                        })
-                        
-                    }
-                }
-            }
-        })
-        
-    }
-    
+
     /// 再生
     /// async
     func play(song: Song, albumDetail album: AlbumDetail?) async {
@@ -234,47 +162,6 @@ class PlayerViewModel: ObservableObject {
         
     }
     
-    /// 再生
-    @available(*, deprecated, message: "Don't use this")
-    func play() {
-        //曲のurl
-        if let currentSong = self.currentSong {
-            let songUrl = currentSong.sourceUrl
-            if let url = URL(string: songUrl) {
-                // 再生する
-                do {
-                    if let album = currentAlbum {
-                        let audioItem = DefaultAudioItem(audioUrl: url.absoluteString,
-                                                         artist: currentSong.artists.joined(separator: ", "),
-                                                         title: currentSong.name,
-                                                         albumTitle: album.name,
-                                                         sourceType: .stream,
-                                                         artwork: UIImage(url: album.coverUrl))
-                        try self.player.load(item: audioItem, playWhenReady: true)
-                    } else {
-                        let audioItem = DefaultAudioItem(audioUrl: url.absoluteString,
-                                                         artist: currentSong.artists.joined(separator: ", "),
-                                                         title: currentSong.name,
-                                                         sourceType: .stream)
-                        try self.player.load(item: audioItem, playWhenReady: true)
-                    }
-                    self.changeVolume(self.volume)
-                } catch {
-                    print("[*] play error:", error)
-                }
-                
-                withAnimation {
-                    self.elapsedTime = 0
-                }
-                
-                // ロック画面での表示の設定、キューの生成
-                let fullSongData = FullSongData(songDetail: currentSong, albumDetail: currentAlbum!)
-                // 情報のセット
-                self.setMediaInfo(fullSongData)
-            }
-        }
-    }
-    
     /// 再生と停止を切り替え
     func togglePlayStop() {
         self.player.togglePlaying()
@@ -298,19 +185,6 @@ class PlayerViewModel: ObservableObject {
     }
     
     /// 次の曲にする
-    @available(*, deprecated, message: "Use skipToNext()")
-    func skipForward() {
-        do {
-            // 次の曲へ
-            try self.player.next()
-            print("[*] スキップ")
-        } catch {
-            // 次の曲はないので何もしない
-            print("[*] スキップしようとしたが曲がないので何もしない")
-        }
-    }
-    
-    /// 次の曲にする
     func skipToNext() {
         do {
             // 次の曲へ
@@ -319,19 +193,6 @@ class PlayerViewModel: ObservableObject {
         } catch {
             // 次の曲はないので何もしない
             print("[*] スキップしようとしたが曲がないので何もしない")
-        }
-    }
-    
-    /// 前の曲にする
-    @available(*, deprecated, message: "Use skipToPrevious()")
-    func skipBackwards() {
-        do {
-            // 次の曲へ
-            try self.player.previous()
-            print("[*] 戻る")
-        } catch {
-            // 次の曲はないので何もしない
-            print("[*] 戻ろうとしたが曲がないので何もしない")
         }
     }
     
