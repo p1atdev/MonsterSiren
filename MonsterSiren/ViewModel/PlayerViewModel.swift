@@ -49,6 +49,8 @@ class PlayerViewModel: ObservableObject {
     /// 曲のキュー管理
     var playQueue = PlayQueue()
     
+    private let client = MonsterSirenClient()
+    
     init() {
         
         // 経過時間
@@ -102,8 +104,10 @@ class PlayerViewModel: ObservableObject {
         print("[*] 以降の曲", self.player.nextItems)
         
         // アルバムの詳細を手に入れる
-        withAnimation {
-            currentAlbum = album
+        DispatchQueue.main.async {
+            withAnimation {
+                self.currentAlbum = album
+            }
         }
         
         if let detail = await song.getDetail() {
@@ -380,37 +384,10 @@ class PlayerViewModel: ObservableObject {
     
     /// 全ての曲のSongDetailを取得
     func getAllSongDetails() async -> [SongDetail] {
-        guard let endpoint = URL(string: "https://monster-siren.hypergryph.com/api/songs") else { return [] }
-        
         do {
+            let songDetails = try await client.getSongs()
             
-            let (data, _) = try await URLSession.shared.data(from: endpoint)
-            
-            let decodedData = try JSONDecoder().decode(AllSongs.self, from: data)
-            let songs = decodedData.data.list.sorted(by: { // アルバムidと曲idでソート
-                if $0.albumCid == $1.albumCid {
-                    return $0.id < $1.id
-                } else {
-                    return $0.albumCid < $1.albumCid
-                }
-            }).map({    // Songに変換
-                $0.convertToSong()
-            })
-            
-            var songDetails: [Int: SongDetail] = [:]
-            
-            await withTaskGroup(of: (Int, SongDetail?).self) { group in
-                for (index, song) in songs.enumerated() {
-                    group.addTask {
-                        return (index, await song.getDetail())
-                    }
-                }
-                for await (index, song) in group {
-                    songDetails[index] = song
-                }
-            }
-            
-            let convertedSongDetails = songDetails.sorted(by: { $0.key < $1.key }).map({ $0.value })
+            let convertedSongDetails = songDetails.sorted(by: { $0.id < $1.id })
             
             return convertedSongDetails
             

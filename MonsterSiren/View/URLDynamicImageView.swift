@@ -6,20 +6,22 @@
 //
 
 import SwiftUI
+import NukeUI
 
 struct URLDynamicImageView: View {
     
-    @ObservedObject var viewModel: URLImageViewModel
+    @Binding var url: String
     
     var body: some View {
-        if let imageData = self.viewModel.downloadData {
-            if let image = UIImage(data: imageData) {
-                return Image(uiImage: image).resizable().scaledToFit()
+        LazyImage(source: url) { state in
+            if let image = state.image {
+                image // Displays the loaded image
+            } else if state.error != nil {
+                EmptyView()
             } else {
-                return Image(uiImage: UIImage()).resizable().scaledToFit()
+                Color.black
+                    .opacity(0.1)
             }
-        } else {
-            return Image(uiImage: UIImage()).resizable().scaledToFit()
         }
     }
 }

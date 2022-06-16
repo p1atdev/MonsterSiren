@@ -26,7 +26,7 @@ struct MiniPlayer: View {
                 
                 HStack(alignment: .center) {
                     if let url = playerViewModel.currentAlbum?.coverUrl {
-                        URLDynamicImageView(viewModel: .init(url: url))
+                        URLDynamicImageView(url: Binding.constant(url))
                             .scaledToFit()
                             .cornerRadius(2)
                             .shadow(color: .black.opacity(0.5),
@@ -91,7 +91,7 @@ struct MiniPlayer: View {
                     
                     Rectangle()
                         .foregroundColor(.white)
-                        .frame(width: geometry.size.width * playerViewModel.elapsedTime / playerViewModel.duration )
+                        .frame(width: geometry.size.width * playerViewModel.elapsedTime / playerViewModel.duration)
                 }
                 .frame(height: 2)
                 .padding(.horizontal)

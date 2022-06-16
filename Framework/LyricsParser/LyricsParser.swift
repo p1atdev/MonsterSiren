@@ -9,7 +9,7 @@
 import Foundation
 
 
-public protocol LyricsManagerDelegate: class {
+public protocol LyricsManagerDelegate: AnyObject {
     
     func occoursError(error: Error)
 }

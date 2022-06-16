@@ -9,11 +9,8 @@ import SwiftUI
 
 struct SongsList: View {
     
-    /// 表示中のアルバム
-    @Binding var album: Album?
-    
     /// アルバムの曲一覧
-    @Binding var songs: [Song]?
+//    @Binding var songs: [Song]
     
     /// アルバム詳細
     @Binding var albumDetail: AlbumDetail?
@@ -29,7 +26,7 @@ struct SongsList: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if let songs = songs {
+            if let songs = albumDetail?.songs {
                 ForEach(0..<songs.count) { index in
                     let song = songs.sorted(by: {
                         $0.id < $1.id
@@ -115,15 +112,8 @@ struct SongsList: View {
         }
         .onAppear {
             withAnimation {
-                loaded = false
+                loaded = true
             }
-            album?.getDetail(completion: { detail in
-                withAnimation {
-                    self.albumDetail = detail
-                    self.songs = detail?.songs
-                    loaded = true
-                }
-            })
         }
     }
 }

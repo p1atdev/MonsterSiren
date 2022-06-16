@@ -117,6 +117,7 @@ class PlayQueue {
     }
     
     /// 全てのsongを取得する
+    @available(*, deprecated, message: "Please do not use this")
     private func getAllSongs(currentSong: Song, completion: @escaping ([Song]?) -> Void) {
         guard let url = URL(string: "https://monster-siren.hypergryph.com/api/songs") else { return }
         

@@ -12,11 +12,12 @@ import SwiftUI
 struct AlbumsView: View {
     /// アルバムのデータ
     @StateObject var albumsModel = AlbumsViewModel()
+    
     /// アルバムが読み込まれたかどうか
     @Binding var loaded: Bool
     
     /// 遷移するアルバム
-    @State var albumToPresent: Album?
+    @State var albumToPresent: AlbumDetail?
     
     /// プレーヤーのやつ
     @EnvironmentObject var playerViewModel: PlayerViewModel
@@ -37,14 +38,14 @@ struct AlbumsView: View {
                                 albumToPresent = album
                             }
                         }, label: {
-                            URLImageView(viewModel: .init(url: album.coverUrl))
-                                .aspectRatio(1, contentMode: .fit)
+                            URLImageView(url: album.coverUrl)
+                                .scaledToFit()
                         })
                     }
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, safeAreaIntents.top)
-                .padding(.bottom, safeAreaIntents.bottom)
+                .padding(.bottom, safeAreaIntents.bottom + 16)
             }
             .opacity(albumToPresent != nil || playerViewModel.shouldShowLyrics ? 0.0 : 1.0)
             .task {
@@ -70,6 +71,21 @@ struct AlbumsView: View {
                     .transition(.move(edge: .trailing))
                     .zIndex(60)
             }
+        }
+    }
+}
+
+struct AlbumsView_Preview: PreviewProvider {
+    static var previews: some View {
+        if #available(iOS 15.0, *) {
+            AlbumsView(loaded: Binding.constant(false))
+                .background(
+                    Image("background")
+                        .resizable()
+                )
+                .ignoresSafeArea()
+                .environmentObject(PlayerViewModel())
+                .previewInterfaceOrientation(.landscapeLeft)
         }
     }
 }

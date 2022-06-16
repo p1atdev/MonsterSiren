@@ -1,6 +1,42 @@
 {
   "pins" : [
     {
+      "identity" : "get",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/Get.git",
+      "state" : {
+        "revision" : "b1137bf8315479cddc79fcb04d9db7bc8117e16f",
+        "version" : "0.8.0"
+      }
+    },
+    {
+      "identity" : "gifu",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kaishin/Gifu",
+      "state" : {
+        "revision" : "51f2eab32903e336f590c013267cfa4d7f8b06c4",
+        "version" : "3.3.1"
+      }
+    },
+    {
+      "identity" : "nuke",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/Nuke.git",
+      "state" : {
+        "revision" : "a002b7fd786f2df2ed4333fe73a9727499fd9d97",
+        "version" : "10.11.2"
+      }
+    },
+    {
+      "identity" : "nukeui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/NukeUI.git",
+      "state" : {
+        "revision" : "ebfed3c9a4e97e310b0ff8ee0fffe5579887a825",
+        "version" : "0.8.2"
+      }
+    },
+    {
       "identity" : "swiftaudio",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/DoubleSymmetry/SwiftAudio.git",

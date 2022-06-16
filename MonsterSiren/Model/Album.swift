@@ -82,6 +82,29 @@ struct Album: Codable, Identifiable {
         .resume()
     }
     
+//    /// idを指定してdetailを取得
+//    static func getDetail(id: String) async throws -> AlbumDetail? {
+//
+//        guard let url = URL(string: "https://monster-siren.hypergryph.com/api/album/\(id)/detail") else { return }
+//
+//        URLSession.shared.dataTask(with: url) {(data, response, error) in
+//            do {
+//                if let albumDetail = data {
+//                    let decodedData = try JSONDecoder().decode(AlbumDetailData.self, from: albumDetail)
+//                    completion(decodedData.data)
+//
+//                } else {
+//                    print("No data: Album.getDetail,", data as Any)
+//                    completion(nil)
+//                }
+//            } catch {
+//                print("Error:  Album.getDetail,", error)
+//                completion(nil)
+//            }
+//        }
+//        .resume()
+//    }
+    
 }
 
 struct AlbumDetailData: Codable {

@@ -11,21 +11,27 @@ import SwiftUI
 extension UIImage {
     public convenience init(url: String) {
         let url = URL(string: url)
-        do {
-            let data = try Data(contentsOf: url!)
-            self.init(data: data)!
-            return
-        } catch let err {
-            print("Error : \(err.localizedDescription)")
+        
+        var data: Data? = nil
+        
+        DispatchQueue.global().async {
+            do {
+                data = try Data(contentsOf: url!)
+            } catch let err {
+                print("Error : \(err.localizedDescription)")
+            }
         }
+        
+        if let data {
+            self.init(data: data)!
+        }
+        
         self.init()
     }
 }
 
-extension String
-{
-    func sizeUsingFont(fontSize: CGFloat, weight: Font.Weight) -> CGSize
-    {
+extension String {
+    func sizeUsingFont(fontSize: CGFloat, weight: Font.Weight) -> CGSize {
         var uiFontWeight = UIFont.Weight.regular
         
         switch weight {

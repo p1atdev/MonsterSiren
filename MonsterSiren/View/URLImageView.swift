@@ -6,20 +6,23 @@
 //
 
 import SwiftUI
+import NukeUI
 
 struct URLImageView: View {
-    
-    @StateObject var viewModel: URLImageViewModel
+    @State var url: String
     
     var body: some View {
-        if let imageData = self.viewModel.downloadData {
-            if let image = UIImage(data: imageData) {
-                return Image(uiImage: image).resizable().scaledToFit()
+        
+        LazyImage(source: url) { state in
+            if let image = state.image {
+                image // Displays the loaded image
+            } else if state.error != nil {
+                EmptyView()
             } else {
-                return Image(uiImage: UIImage()).resizable().scaledToFit()
+                // Acts as a placeholder
+                Color.black
+                    .opacity(0.1)
             }
-        } else {
-            return Image(uiImage: UIImage()).resizable().scaledToFit()
         }
     }
 }

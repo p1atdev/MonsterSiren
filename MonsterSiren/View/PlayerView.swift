@@ -36,7 +36,7 @@ struct PlayerView: View {
                 
                 if let album = playerViewModel.currentAlbum {
                     ZStack(alignment: .topLeading) {
-                        URLDynamicImageView(viewModel: .init(url: album.coverUrl))
+                        URLDynamicImageView(url: Binding.constant(album.coverUrl))
                             .aspectRatio(1, contentMode: .fit)
                             .frame(minWidth: proxy.size.width - 16,
                                    minHeight: proxy.size.width - 16)
@@ -64,9 +64,9 @@ struct PlayerView: View {
                                         x: -1,
                                         y: 2)
                             })
-                                .buttonStyle(PlainButtonStyle())
-                                .frame(width: 40, height: 40)
-                                .padding(4)
+                            .buttonStyle(PlainButtonStyle())
+                            .frame(width: 40, height: 40)
+                            .padding(4)
                         }
                         
                     }
@@ -135,32 +135,32 @@ struct PlayerView: View {
                 // ボタン系
                 HStack(alignment: .center) {
                     // 前の曲
-                    Button(action: {
+                    Button {
                         playerViewModel.skipToPrevious()
-                    }, label: {
+                    } label: {
                         Image(systemName: "backward.end.fill")
-                    })
-                        .keyboardShortcut(.leftArrow, modifiers: [.shift])
+                    }
+                    .keyboardShortcut(.leftArrow, modifiers: [.shift])
                     
                     Spacer()
                     
                     // 再生、停止
-                    Button(action: {
+                    Button {
                         playerViewModel.togglePlayStop()
-                    }, label: {
+                    } label: {
                         Image(systemName: playerViewModel.isPlaying ? "pause.fill" : "play.fill")
-                    })
-                        .keyboardShortcut(.space, modifiers: [])
+                    }
+                    .keyboardShortcut(.space, modifiers: [])
                     
                     Spacer()
                     
                     // 次の曲
-                    Button(action: {
+                    Button {
                         playerViewModel.skipToNext()
-                    }, label: {
+                    } label: {
                         Image(systemName: "forward.end.fill")
-                    })
-                        .keyboardShortcut(.rightArrow, modifiers: [.shift])
+                    }
+                    .keyboardShortcut(.rightArrow, modifiers: [.shift])
                 }
                 .frame(height: 36)
                 .padding(.horizontal)
@@ -179,12 +179,12 @@ struct PlayerView: View {
                             .foregroundColor(isShuffled ? .accentColor : .white)
                     })
                     
-                     Spacer()
+                    Spacer()
                     
                     // ループのタイプ TODO: 再生タイプの変更後、キューの再生成を行うように？
-                    Button(action: {
+                    Button {
                         playerViewModel.updatePlayType(type: playType)
-                    }, label: {
+                    } label: {
                         Image(systemName:
                                 { switch playType {
                                 case "oneSong":
@@ -197,8 +197,8 @@ struct PlayerView: View {
                                     return "repeat"
                                 }}()
                         )
-                            .foregroundColor(isLoop ? .accentColor : .white)
-                    })
+                        .foregroundColor(isLoop ? .accentColor : .white)
+                    }
                 }
                 .frame(height: 32)
                 .padding(.horizontal)
@@ -219,7 +219,7 @@ struct PlayerView: View {
                             return "speaker.wave.3.fill"
                         }
                     }())
-                        .frame(width: 36)
+                    .frame(width: 36)
                     
                     Slider(value: Binding(
                         get: {

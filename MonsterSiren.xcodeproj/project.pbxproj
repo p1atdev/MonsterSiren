@@ -16,6 +16,11 @@
 		3A5515D3276AAFC000EAFDDD /* LyricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5515D2276AAFC000EAFDDD /* LyricsView.swift */; };
 		3A5515D5276AB19D00EAFDDD /* Lyrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5515D4276AB19D00EAFDDD /* Lyrics.swift */; };
 		3A5515E4276B4E4300EAFDDD /* LyricsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5515E3276B4E4300EAFDDD /* LyricsViewModel.swift */; };
+		3A700D2A285B517B00910E15 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3A700D29285B517B00910E15 /* NukeUI */; };
+		3A700D2D285B593200910E15 /* Get in Frameworks */ = {isa = PBXBuildFile; productRef = 3A700D2C285B593200910E15 /* Get */; };
+		3A700D30285B596800910E15 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A700D2F285B596800910E15 /* API.swift */; };
+		3A700D31285B6DC100910E15 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A700D2F285B596800910E15 /* API.swift */; };
+		3A700D32285B6EA400910E15 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80392627310AE20044803F /* Album.swift */; };
 		3A8038EA2731048F0044803F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8038E92731048F0044803F /* AppDelegate.swift */; };
 		3A8038EC2731048F0044803F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8038EB2731048F0044803F /* SceneDelegate.swift */; };
 		3A8038F3273104910044803F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A8038F2273104910044803F /* Assets.xcassets */; };
@@ -71,6 +76,7 @@
 		3A5515D2276AAFC000EAFDDD /* LyricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsView.swift; sourceTree = "<group>"; };
 		3A5515D4276AB19D00EAFDDD /* Lyrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lyrics.swift; sourceTree = "<group>"; };
 		3A5515E3276B4E4300EAFDDD /* LyricsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsViewModel.swift; sourceTree = "<group>"; };
+		3A700D2F285B596800910E15 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		3A8038E62731048F0044803F /* MonsterSiren.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonsterSiren.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8038E92731048F0044803F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A8038EB2731048F0044803F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +121,8 @@
 				3A289EC6282ADDFB001A526E /* SwiftAudioEx in Frameworks */,
 				3A47A36E2731936D00A509B6 /* SwiftAudioPlayer in Frameworks */,
 				3A289EC9282ADEC0001A526E /* SwiftAudioPlayer in Frameworks */,
+				3A700D2A285B517B00910E15 /* NukeUI in Frameworks */,
+				3A700D2D285B593200910E15 /* Get in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +151,21 @@
 			path = Framework;
 			sourceTree = "<group>";
 		};
+		3A700D2E285B595600910E15 /* Endpoint */ = {
+			isa = PBXGroup;
+			children = (
+				3A700D2F285B596800910E15 /* API.swift */,
+			);
+			path = Endpoint;
+			sourceTree = "<group>";
+		};
+		3A700D33285B6EBC00910E15 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3A8038DD2731048F0044803F = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +174,7 @@
 				3A803909273104910044803F /* MonsterSirenUITests */,
 				3A5515D7276AB48A00EAFDDD /* Framework */,
 				3A8038E72731048F0044803F /* Products */,
+				3A700D33285B6EBC00910E15 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -176,6 +200,7 @@
 				3A80392427310A230044803F /* Model */,
 				3A80392527310A280044803F /* ViewModel */,
 				3A80392327310A200044803F /* View */,
+				3A700D2E285B595600910E15 /* Endpoint */,
 				3A8038F2273104910044803F /* Assets.xcassets */,
 				3A8038F4273104910044803F /* LaunchScreen.storyboard */,
 				3A8038F7273104910044803F /* Info.plist */,
@@ -281,6 +306,8 @@
 				3A47A36D2731936D00A509B6 /* SwiftAudioPlayer */,
 				3A289EC5282ADDFB001A526E /* SwiftAudioEx */,
 				3A289EC8282ADEC0001A526E /* SwiftAudioPlayer */,
+				3A700D29285B517B00910E15 /* NukeUI */,
+				3A700D2C285B593200910E15 /* Get */,
 			);
 			productName = MonsterSiren;
 			productReference = 3A8038E62731048F0044803F /* MonsterSiren.app */;
@@ -359,6 +386,8 @@
 				3ADE30CE282AC9B7005CCEF4 /* XCRemoteSwiftPackageReference "SwiftAudio" */,
 				3A289EC4282ADDFB001A526E /* XCRemoteSwiftPackageReference "SwiftAudio" */,
 				3A289EC7282ADEC0001A526E /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */,
+				3A700D28285B517B00910E15 /* XCRemoteSwiftPackageReference "NukeUI" */,
+				3A700D2B285B593200910E15 /* XCRemoteSwiftPackageReference "Get" */,
 			);
 			productRefGroup = 3A8038E72731048F0044803F /* Products */;
 			projectDirPath = "";
@@ -407,6 +436,7 @@
 				3A80392727310AE20044803F /* Album.swift in Sources */,
 				3A5515D1276AAF2600EAFDDD /* BackButton.swift in Sources */,
 				3A80393227311AE30044803F /* URLImageView.swift in Sources */,
+				3A700D30285B596800910E15 /* API.swift in Sources */,
 				3A80393A27312B9B0044803F /* LoadingBannerView.swift in Sources */,
 				3A80393C2731382F0044803F /* PlayerView.swift in Sources */,
 				3A8CE3642732BD8000DBDEDC /* URLDynamicImageView.swift in Sources */,
@@ -439,7 +469,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A700D31285B6DC100910E15 /* API.swift in Sources */,
 				3A803901273104910044803F /* MonsterSirenTests.swift in Sources */,
+				3A700D32285B6EA400910E15 /* Album.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -843,6 +875,22 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		3A700D28285B517B00910E15 /* XCRemoteSwiftPackageReference "NukeUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/NukeUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.2;
+			};
+		};
+		3A700D2B285B593200910E15 /* XCRemoteSwiftPackageReference "Get" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Get.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.0;
+			};
+		};
 		3ADE30CE282AC9B7005CCEF4 /* XCRemoteSwiftPackageReference "SwiftAudio" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/DoubleSymmetry/SwiftAudio.git";
@@ -868,6 +916,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3A47A36C2731936D00A509B6 /* XCRemoteSwiftPackageReference "SwiftAudioPlayer" */;
 			productName = SwiftAudioPlayer;
+		};
+		3A700D29285B517B00910E15 /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3A700D28285B517B00910E15 /* XCRemoteSwiftPackageReference "NukeUI" */;
+			productName = NukeUI;
+		};
+		3A700D2C285B593200910E15 /* Get */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3A700D2B285B593200910E15 /* XCRemoteSwiftPackageReference "Get" */;
+			productName = Get;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

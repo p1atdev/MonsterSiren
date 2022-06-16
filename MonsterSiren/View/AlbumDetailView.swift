@@ -9,14 +9,8 @@ import SwiftUI
 
 struct AlbumDetailView: View {
     
-    /// もらったアルバム
-    @Binding var album: Album?
-    
     /// アルバム詳細
-    @State var albumDetail: AlbumDetail?
-    
-    /// アルバムの曲一覧
-    @State var songs: [Song]?
+    @Binding var album: AlbumDetail?
     
     /// ロードが完了したか
     @Binding var loaded: Bool
@@ -39,7 +33,7 @@ struct AlbumDetailView: View {
                     loaded = true
                 }
             })
-                .zIndex(50)
+            .zIndex(50)
             
             GeometryReader { geometry in
                 
@@ -64,10 +58,10 @@ struct AlbumDetailView: View {
                                                            startPoint: .top,
                                                            endPoint: .bottom)
                                             
-                                            if let albumDetail = albumDetail {
+                                            if let album {
                                                 // でかいバナー画像
-                                                URLImageView(viewModel: .init(url: albumDetail.coverDeUrl))
-                                                    .aspectRatio(contentMode: .fill)
+                                                URLImageView(url: album.coverDeUrl)
+                                                //                                                    .scaledToFill()
                                                     .frame(width: reader.size.width)
                                                     .overlay(
                                                         Rectangle()
@@ -96,12 +90,12 @@ struct AlbumDetailView: View {
                                 
                                 
                                 // アルバムのジャケ画像とアルバム名
-                                if let album = album {
+                                if let album {
                                     
                                     HStack(alignment: .bottom) {
                                         
-                                        URLImageView(viewModel: .init(url: album.coverUrl))
-                                            .aspectRatio(1, contentMode: .fit)
+                                        URLImageView(url: album.coverUrl)
+                                            .scaledToFit()
                                             .frame(height: min(275, window.height / 4))
                                             .offset(y: 80)
                                             .shadow(color: .black,
@@ -133,8 +127,9 @@ struct AlbumDetailView: View {
                                 Button(action: {
                                     Task {
                                         // アルバムの一番上から再生
-                                        guard let songs = songs else { return }
-                                        await playerViewModel.play(song: songs[0], albumDetail: albumDetail)
+                                        if let song = album?.songs.first {
+                                            await playerViewModel.play(song: song, albumDetail: album)
+                                        }
                                     }
                                 }, label: {
                                     
@@ -175,10 +170,10 @@ struct AlbumDetailView: View {
                                                            startPoint: .top,
                                                            endPoint: .bottom)
                                             
-                                            if let albumDetail = albumDetail {
+                                            if let album {
                                                 // でかいバナー画像
-                                                URLImageView(viewModel: .init(url: albumDetail.coverDeUrl))
-                                                    .scaledToFill()
+                                                URLImageView(url: album.coverDeUrl)
+                                                // .scaledToFill()
                                                     .frame(width: reader.size.width)
                                                     .overlay(
                                                         Rectangle()
@@ -203,30 +198,30 @@ struct AlbumDetailView: View {
                                             .offset(y: (offset > 0 ? -offset : 0))
                                     )
                                 }
-//                                .frame(maxHeight: window.height / 2)
+                                //          .frame(maxHeight: window.height / 2)
                                 
                                 // アルバムのジャケ画像とアルバム名
-                                if let album = album {
+                                if let album {
                                     VStack(alignment: .center) {
                                         
-                                        URLImageView(viewModel: .init(url: album.coverUrl))
-                                            .aspectRatio(1, contentMode: .fit)
+                                        URLImageView(url: album.coverUrl)
+                                            .scaledToFit()
                                             .frame(minWidth:  160, maxWidth: 240)
                                             .shadow(color: .black.opacity(0.5),
                                                     radius: 12,
                                                     x: -4,
                                                     y: 8)
-//                                            .padding(.top, safeAreaIntents.top + 64)
+                                        //  .padding(.top, safeAreaIntents.top + 64)
                                             .overlay(
                                                 ZStack {
-                                                    Button(action: {
+                                                    Button {
                                                         Task {
                                                             // アルバムの一番上から再生
-                                                            guard let songs = songs else { return }
-                                                            await playerViewModel.play(song: songs[0], albumDetail: albumDetail)
+                                                            if let song = album.songs.first {
+                                                                await playerViewModel.play(song: song, albumDetail: album)
+                                                            }
                                                         }
-                                                    }, label: {
-                                                        
+                                                    } label: {
                                                         ZStack {
                                                             Circle()
                                                                 .foregroundColor(Color("blue"))
@@ -235,8 +230,7 @@ struct AlbumDetailView: View {
                                                                 .foregroundColor(.white)
                                                                 .font(.title2)
                                                         }
-                                                        
-                                                    })
+                                                    }
                                                     .frame(width: 64,
                                                            height: 64,
                                                            alignment: .bottomTrailing)
@@ -265,19 +259,16 @@ struct AlbumDetailView: View {
                                 }
                             }
                         }
-
+                        
                         // 曲一覧
-                        SongsList(album: $album,
-                                  songs: $songs,
-                                  albumDetail: $albumDetail,
+                        SongsList(albumDetail: $album,
                                   loaded: $loaded)
-                            .padding(.horizontal, geometry.size.width > 750 ? 64 : 8)
-                            .padding(.bottom, 128)
+                        .padding(.horizontal, geometry.size.width > 750 ? 64 : 8)
+                        .padding(.bottom, 128)
                         
                     }
                     
                 }
-                
                 .background(
                     Image("background")
                         .resizable()
@@ -288,17 +279,35 @@ struct AlbumDetailView: View {
     }
 }
 
+private struct AlbumDetail_PreviewView: View {
+    
+    let client = MonsterSirenClient()
+    
+    @State var album: AlbumDetail?
+    
+    var body: some View {
+        Group {
+            if album != nil {
+                AlbumDetailView(album: $album,
+                                loaded: Binding.constant(true))
+            }
+        }
+        .task {
+            self.album = try? await client.getAlbum(albumId: "0256")
+        }
+    }
+}
+
 struct AlbumDetail_Preview: PreviewProvider {
+    
+    @State var album: AlbumDetail?
+    
     static var previews: some View {
         if #available(iOS 15.0, *) {
-            AlbumDetailView(album: Binding.constant(Album(id: "4520",
-                                                          name: "愚人号OST",
-                                                          coverUrl: "https://web.hycdn.cn/siren/pic/20220509/60c48c2cd057afb6d4dcd65cae5c3fe9.jpg",
-                                                          artistes: ["塞壬唱片-MSR"])),
-                            loaded: Binding.constant(true))
+            AlbumDetail_PreviewView()
             .ignoresSafeArea()
             .environmentObject(PlayerViewModel())
-//            .previewInterfaceOrientation(.landscapeLeft)
+            .previewInterfaceOrientation(.landscapeLeft)
         }
     }
 }
