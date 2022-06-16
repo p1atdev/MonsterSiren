@@ -52,36 +52,30 @@ struct MiniPlayer: View {
                     
                     GeometryReader { proxy in
                         VStack(alignment: .leading) {
-//                            Text(playerViewModel.currentSong?.name ?? "No data")
-//                                .font(.title2)
                             ScrollSongText(songName: Binding.constant(playerViewModel.currentSong?.name ?? "No data"),
-                                           fontSize: 24, wrapWidth: proxy.size.width)
-                            
+                                           fontSize: 24,
+                                           wrapWidth: proxy.size.width)
                             
                             Text(playerViewModel.currentSong?.artists.joined(separator: ", ")
                                  ?? "No data")
                                 .font(.caption)
                                 .opacity(0.8)
-                            
                         }
+                        .padding(.vertical, 6)
+                        .padding(.leading, 4)
                     }
                     
                     Spacer()
                     
-                    Button(action: {
-                        
+                    Button {
                         // 切り替え
                         playerViewModel.togglePlayStop()
-                        
-                    }, label: {
-                        
+                    } label: {
                         Image(systemName: playerViewModel.isPlaying ? "pause.fill" : "play.fill")
                             .font(.title2)
-                        
-                    })
-                        .frame(width: 64)
-                        .buttonStyle(PlainButtonStyle())
-                    
+                    }
+                    .frame(width: 64)
+                    .buttonStyle(PlainButtonStyle())
                     
                 }
                 
@@ -96,7 +90,6 @@ struct MiniPlayer: View {
                 .frame(height: 2)
                 .padding(.horizontal)
                 .padding(.vertical, 2)
-                
             }
             .background(backgroundColor)
             .frame(height: 68)
@@ -108,7 +101,6 @@ struct MiniPlayer: View {
                 playerShouldShow.toggle()
             }
         }
-        
         .sheet(isPresented: $playerShouldShow) {
             VStack {
                 Spacer()
@@ -121,7 +113,5 @@ struct MiniPlayer: View {
                     .ignoresSafeArea()
             )
         }
-        
-        
     }
 }
